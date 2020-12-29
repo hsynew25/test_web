@@ -77,10 +77,10 @@ function Header() {
         <SLink to="/">
           <Logo>Desk Holic</Logo>
         </SLink>
-        <SLink to="/login">
+        {/* <SLink to="/login">
           <Button>LOGIN</Button>
-        </SLink>
-        {/* <ProfileAfterLogin /> */}
+        </SLink> */}
+        <ProfileAfterLogin />
       </Wrap>
     </Container>
   );

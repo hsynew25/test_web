@@ -6,6 +6,7 @@ const Container = styled.div``;
 
 const Button = styled.button`
   vertical-align: top;
+  display: inline-block;
 `;
 
 const Nickname = styled.span`
@@ -33,6 +34,7 @@ const ImgWrap = styled.div`
 
 const Img = styled.img`
   width: 100%;
+  vertical-align: top;
 `;
 
 function ProfileAfterLogin() {
