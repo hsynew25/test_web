@@ -23,6 +23,8 @@ const GlobalStyles = createGlobalStyle`
   body {
     background-color: #fafafa;
     font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+    min-width: 320px;
+    height:100vh;
   }
 `;
 

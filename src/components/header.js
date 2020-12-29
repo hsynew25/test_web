@@ -15,6 +15,8 @@ const Container = styled.div`
 const Wrap = styled.div`
   display: flex;
   justify-content: space-between;
+  max-width: 944px;
+  margin: 0 auto;
 `;
 
 const Logo = styled.div`
