@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../img/logo.png";
+import ProfileAfterLogin from "./profileAfterLogin";
 
 const Container = styled.div`
   padding: 12px 10px;
@@ -79,6 +80,7 @@ function Header() {
         <SLink to="/login">
           <Button>LOGIN</Button>
         </SLink>
+        {/* <ProfileAfterLogin /> */}
       </Wrap>
     </Container>
   );
