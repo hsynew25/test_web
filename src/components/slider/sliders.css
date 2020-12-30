@@ -1,0 +1,25 @@
+.slick-prev {
+  z-index: 1;
+}
+
+.slick-prev:before {
+  content: "";
+}
+
+.slick-prev:hover:before {
+  content: "👈";
+  font-size: 30px;
+}
+
+.slick-next {
+  z-index: 1;
+}
+
+.slick-next:before {
+  content: "";
+}
+
+.slick-next:hover:before {
+  content: "👉";
+  font-size: 30px;
+}
