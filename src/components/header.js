@@ -6,10 +6,12 @@ import ProfileAfterLogin from "./profileAfterLogin";
 
 const Container = styled.div`
   padding: 12px 10px;
-  box-shadow: 0 5px 5px #d0d0d0;
+  border-bottom: 1px solid #d0d0d0;
 
   @media screen and (min-width: 768px) {
     padding: 15px 40px;
+    box-shadow: 0 5px 5px #d0d0d0;
+    border-bottom: 0;
   }
 `;
 
@@ -70,7 +72,7 @@ const SLink = styled(Link)`
   vertical-align: top;
 `;
 
-function Header() {
+const Header = () => {
   return (
     <Container>
       <Wrap>
@@ -84,6 +86,6 @@ function Header() {
       </Wrap>
     </Container>
   );
-}
+};
 
 export default Header;

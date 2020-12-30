@@ -20,17 +20,17 @@ const Button = styled.button`
   position: absolute;
   right: 1px;
   top: 0;
-  padding: 19px 15px;
+  padding: 18px 15px;
   background: url(${cancelIcon}) no-repeat 10px 13px/10px 10px;
 `;
 
-function DirectDomain() {
+const DirectDomain = () => {
   return (
     <Container>
       <Input type="text" placeholder="입력하세요" />
       <Button />
     </Container>
   );
-}
+};
 
 export default DirectDomain;

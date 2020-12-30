@@ -37,7 +37,7 @@ const Img = styled.img`
   vertical-align: top;
 `;
 
-function ProfileAfterLogin() {
+const ProfileAfterLogin = () => {
   return (
     <Container>
       <Button>
@@ -48,6 +48,6 @@ function ProfileAfterLogin() {
       </Button>
     </Container>
   );
-}
+};
 
 export default ProfileAfterLogin;

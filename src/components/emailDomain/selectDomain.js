@@ -16,10 +16,10 @@ const Select = styled.select`
 
 const Option = styled.option``;
 
-function SelectDomain() {
+const SelectDomain = () => {
   return (
-    <Select>
-      <Option selected disabled>
+    <Select defaultValue="default">
+      <Option value="default" disabled>
         선택하세요
       </Option>
       <Option value="naver.com">naver.com</Option>
@@ -30,6 +30,6 @@ function SelectDomain() {
       <Option value="directInput">직접입력</Option>
     </Select>
   );
-}
+};
 
 export default SelectDomain;

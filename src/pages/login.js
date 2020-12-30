@@ -52,7 +52,7 @@ const SLink = styled(Link)`
   font-size: 15px;
 `;
 
-function Login() {
+const Login = () => {
   return (
     <Container>
       <Form>
@@ -66,6 +66,6 @@ function Login() {
       </Wrap>
     </Container>
   );
-}
+};
 
 export default Login;

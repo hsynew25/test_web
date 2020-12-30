@@ -70,7 +70,7 @@ const Occupation = styled.div`
   color: #757575;
 `;
 
-const P = styled.p`
+const Introduction = styled.p`
   margin-top: 10px;
   height: 54px;
   font-size: 14px;
@@ -80,8 +80,8 @@ const P = styled.p`
 const ButtonWrap = styled.div``;
 
 const Button = styled.button`
-  background: url(${(props) => (props.img ? props.img : null)}) no-repeat -2px -2px/30px
-    30px;
+  background: url(${(props) => (props.clicked ? emptyHeart : fillHeart)})
+    no-repeat -2px -2px/30px 30px;
   width: 26px;
   height: 26px;
   vertical-align: top;
@@ -95,7 +95,7 @@ const Comment = styled.span`
   vertical-align: top;
 `;
 
-function Card() {
+const Card = () => {
   return (
     <Container>
       <ImgWrap>
@@ -109,14 +109,14 @@ function Card() {
             <Occupation>developer</Occupation>
           </ProfileWrap>
         </Header>
-        <P>여기에 유저가 작성한 글이 들어갑니다.</P>
+        <Introduction>여기에 유저가 작성한 글이 들어갑니다.</Introduction>
         <ButtonWrap>
-          <Button img={emptyHeart} />
+          <Button clicked={true} />
           <Comment />
         </ButtonWrap>
       </CardInfo>
     </Container>
   );
-}
+};
 
 export default Card;

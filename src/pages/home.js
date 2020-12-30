@@ -19,7 +19,7 @@ const Container = styled.div`
   }
 `;
 
-function Home() {
+const Home = () => {
   return (
     <Container>
       <Card />
@@ -29,6 +29,6 @@ function Home() {
       <Card />
     </Container>
   );
-}
+};
 
 export default Home;
