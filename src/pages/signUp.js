@@ -7,6 +7,8 @@ import plusIcon from "../img/plus.png";
 
 const Container = styled.div`
   padding: 50px 30px;
+  max-width: 600px;
+  margin: 0 auto;
 `;
 
 const Title = styled.h1`
@@ -75,7 +77,7 @@ const SubmitButton = styled.button`
   margin-top: 40px;
 `;
 
-function SignUp() {
+const SignUp = () => {
   return (
     <Container>
       <Title>회원가입</Title>
@@ -147,6 +149,6 @@ function SignUp() {
       </Form>
     </Container>
   );
-}
+};
 
 export default SignUp;
