@@ -31,8 +31,8 @@ const MyPage = () => {
         <Item active={true}>프로필</Item>
         <Item>설정</Item>
       </List>
-      {/* <MyProfile /> */}
-      <MySetting />
+      <MyProfile />
+      {/* <MySetting /> */}
     </Container>
   );
 };
