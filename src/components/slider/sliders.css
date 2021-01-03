@@ -7,8 +7,17 @@
 }
 
 .slick-prev:hover:before {
-  content: "👈";
-  font-size: 30px;
+  display: block;
+  text-align: center;
+  content: "\003c";
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 28px;
+  width: 25px;
+  height: 25px;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  font-family: "Spoqa Han Sans Neo";
 }
 
 .slick-next {
@@ -20,6 +29,15 @@
 }
 
 .slick-next:hover:before {
-  content: "👉";
-  font-size: 30px;
+  display: block;
+  text-align: center;
+  content: "\003e";
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 28px;
+  width: 25px;
+  height: 25px;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  font-family: "Spoqa Han Sans Neo";
 }

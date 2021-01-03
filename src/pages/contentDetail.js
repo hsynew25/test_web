@@ -1,17 +1,49 @@
 import React from "react";
 import styled from "styled-components";
 import basicProfile from "../img/basic_profile.png";
-import sampleDesk from "../img/sample_desk.jpeg";
 import emptyHeart from "../img/empty_heart.png";
 import fillHeart from "../img/fill_heart.png";
 import commentImg from "../img/comment.png";
 import Sliders from "../components/slider/sliders";
+import CommentList from "../components/comment/commentList";
+import CommentItem from "../components/comment/commentItem";
+import WritingComment from "../components/comment/writingComment";
 
-const Container = styled.div``;
+const Container = styled.div`
+  @media screen and (min-width: 768px) {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  @media screen and (min-width: 1024px) {
+    margin-top: 80px;
+    box-shadow: 0 0 20px #d2d2d2;
+    height: 600px;
+  }
+`;
 
 const Header = styled.div`
   display: flex;
   padding: 10px;
+  @media screen and (min-width: 768px) {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+  }
+  @media screen and (min-width: 1024px) {
+    padding: 15px;
+  }
+`;
+
+const SliderWrap = styled.div`
+  @media screen and (min-width: 768px) {
+    width: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
 `;
 
 const ImgWrap = styled.div`
@@ -43,7 +75,18 @@ const Occupation = styled.div`
   color: #757575;
 `;
 
-const ButtonWrap = styled.div``;
+const ButtonWrap = styled.div`
+  @media screen and (min-width: 768px) {
+    position: absolute;
+    top: 160px;
+    right: 0;
+    width: 50%;
+  }
+
+  @media screen and (min-width: 1024px) {
+    padding: 0 5px;
+  }
+`;
 
 const Button = styled.button`
   background: url(${(props) => (props.clicked ? emptyHeart : fillHeart)})
@@ -66,11 +109,32 @@ const Introduction = styled.p`
   word-break: break-word;
   min-height: 100px;
   font-size: 15px;
+
+  @media screen and (min-width: 768px) {
+    width: 50%;
+    position: absolute;
+    top: 60px;
+    right: 0;
+  }
+
+  @media screen and (min-width: 1024px) {
+    padding: 15px;
+  }
 `;
 
 const CountWrap = styled.div`
   display: flex;
   padding: 10px;
+
+  @media screen and (min-width: 768px) {
+    width: 50%;
+    position: absolute;
+    top: 200px;
+    right: 0;
+  }
+  @media screen and (min-width: 1024px) {
+    padding: 15px;
+  }
 `;
 
 const CounteTitle = styled.div`
@@ -87,10 +151,6 @@ const CounteTitle = styled.div`
 
 const CommentWrap = styled.div``;
 
-const TempImg = styled.img`
-  width: 375px;
-`;
-
 const ContentDetail = () => {
   return (
     <Container>
@@ -103,7 +163,9 @@ const ContentDetail = () => {
           <Occupation>Developer</Occupation>
         </WriterWrap>
       </Header>
-      <Sliders />
+      <SliderWrap>
+        <Sliders />
+      </SliderWrap>
       <ButtonWrap>
         <Button clicked={true} />
         <Comment />
@@ -120,6 +182,12 @@ const ContentDetail = () => {
           조회수 <span>9301</span>회
         </CounteTitle>
       </CountWrap>
+      <CommentWrap>
+        <WritingComment />
+        <CommentList>
+          <CommentItem />
+        </CommentList>
+      </CommentWrap>
     </Container>
   );
 };
