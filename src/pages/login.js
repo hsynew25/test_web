@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
+import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { userApi } from "../api";
+import Loader from "../components/loader";
 
 const Container = styled.div`
   max-width: 360px;
@@ -52,13 +55,58 @@ const SLink = styled(Link)`
   font-size: 15px;
 `;
 
-const Login = () => {
+const Login = ({ history }) => {
+  const [userId, setUserId] = useState("");
+  const [userPassword, setUserPassword] = useState("");
+  const [cookies, setCookie] = useCookies(["userToken"]);
+  const [loading, setLoading] = useState(false);
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    setLoading(true);
+    try {
+      const {
+        data: { access_token },
+        status,
+      } = await userApi.signIn(userId, userPassword);
+
+      if (status === 201) {
+        setCookie("userToken", access_token, { path: "/" });
+        alert("로그인 성공😊");
+        history.push("/");
+      }
+    } catch (error) {
+      if (error.response.status === 401) {
+        alert("아이디와 비밀번호를 다시 확인해주세요😅");
+        setUserPassword("");
+      } else if (error.response.status === 404) {
+        console.log("Error", error.response.data.message);
+      } else {
+        console.log(error);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <Container>
-      <Form>
-        <Input type="text" placeholder="아이디" autoFocus="autofocus" />
-        <Input type="text" placeholder="비밀번호" />
-        <Button>로그인</Button>
+      {loading && <Loader />}
+      <Form onSubmit={onSubmit}>
+        <Input
+          type="text"
+          placeholder="아이디"
+          autoFocus="autofocus"
+          value={userId}
+          onChange={(e) => setUserId(e.currentTarget.value)}
+        />
+        <Input
+          type="password"
+          placeholder="비밀번호"
+          value={userPassword}
+          onChange={(e) => setUserPassword(e.currentTarget.value)}
+        />
+        <Button onClick={onSubmit}>로그인</Button>
       </Form>
       <Wrap>
         <SLink to="/">아이디/비밀번호 찾기</SLink>
