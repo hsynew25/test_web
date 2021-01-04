@@ -2,6 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../img/logo.png";
+import { useGetMyProfile } from "./hooks/useGetMyProfile";
+import { useGetToken } from "./hooks/useGetToken";
+import { useLogin } from "./hooks/useLogin";
 import ProfileAfterLogin from "./profileAfterLogin";
 
 const Container = styled.div`
@@ -73,16 +76,24 @@ const SLink = styled(Link)`
 `;
 
 const Header = () => {
+  const { access_token } = useGetToken();
+  const {
+    myProfile: { nickname, profileImg },
+  } = useGetMyProfile(access_token);
+  const { isLogin } = useLogin(access_token);
   return (
     <Container>
       <Wrap>
         <SLink to="/">
           <Logo>Desk Holic</Logo>
         </SLink>
-        {/* <SLink to="/login">
-          <Button>LOGIN</Button>
-        </SLink> */}
-        <ProfileAfterLogin />
+        {isLogin ? (
+          <ProfileAfterLogin nickname={nickname} profileImg={profileImg} />
+        ) : (
+          <SLink to="/login">
+            <Button>LOGIN</Button>
+          </SLink>
+        )}
       </Wrap>
     </Container>
   );

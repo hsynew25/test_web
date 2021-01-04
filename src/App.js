@@ -1,11 +1,14 @@
 import Router from "./components/router";
 import GlobalStyles from "./components/globalStyles";
+import { CookiesProvider } from "react-cookie";
 
 function App() {
   return (
     <div className="App">
-      <Router />
-      <GlobalStyles />
+      <CookiesProvider>
+        <Router />
+        <GlobalStyles />
+      </CookiesProvider>
     </div>
   );
 }

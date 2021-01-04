@@ -58,7 +58,7 @@ const SLink = styled(Link)`
 const Login = ({ history }) => {
   const [userId, setUserId] = useState("");
   const [userPassword, setUserPassword] = useState("");
-  const [cookies, setCookie] = useCookies(["userToken"]);
+  const [userCookies, setUserCookie] = useCookies(["userToken"]);
   const [loading, setLoading] = useState(false);
 
   const onSubmit = async (e) => {
@@ -72,7 +72,7 @@ const Login = ({ history }) => {
       } = await userApi.signIn(userId, userPassword);
 
       if (status === 201) {
-        setCookie("userToken", access_token, { path: "/" });
+        setUserCookie("userToken", access_token, { path: "/" });
         alert("로그인 성공😊");
         history.push("/");
       }

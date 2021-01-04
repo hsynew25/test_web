@@ -37,13 +37,13 @@ const Img = styled.img`
   vertical-align: top;
 `;
 
-const ProfileAfterLogin = () => {
+const ProfileAfterLogin = ({ nickname, profileImg }) => {
   return (
     <Container>
       <Button>
-        <Nickname>나는 누구</Nickname>
+        <Nickname>{nickname}</Nickname>
         <ImgWrap>
-          <Img src={basicProfile} />
+          <Img src={profileImg === "" ? basicProfile : profileImg} />
         </ImgWrap>
       </Button>
     </Container>
