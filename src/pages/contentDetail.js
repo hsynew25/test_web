@@ -149,7 +149,14 @@ const CounteTitle = styled.div`
   }
 `;
 
-const CommentWrap = styled.div``;
+const CommentWrap = styled.div`
+  @media screen and (min-width: 768px) {
+    position: absolute;
+    top: 235px;
+    right: 0;
+    width: 50%;
+  }
+`;
 
 const ContentDetail = () => {
   return (

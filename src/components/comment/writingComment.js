@@ -24,13 +24,16 @@ const Img = styled.img`
 
 const ContentWrap = styled.div`
   position: relative;
+  flex-grow: 1;
 `;
 
 const Textarea = styled.textarea`
   resize: none;
-  width: 308px;
-  flex-grow: 1;
+  width: 100%;
   padding: 10px 40px 10px 10px;
+  border: 1px solid #d0d0d0;
+  border-radius: 5px;
+  font-size: 14px;
 `;
 
 const Button = styled.button`

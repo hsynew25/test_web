@@ -3,7 +3,7 @@ import styled from "styled-components";
 import basicProfile from "../../img/basic_profile.png";
 import emptyHeart from "../../img/empty_heart.png";
 
-const Container = styled.div`
+const Container = styled.li`
   padding: 10px 0;
   display: flex;
 `;
