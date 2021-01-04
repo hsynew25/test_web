@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { userApi } from "../../api";
+import { userApi } from "../api";
 
 export function useGetMyProfile(accessToken) {
   const [myProfile, setMyProfile] = useState({});

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { userApi } from "../../api";
+import { userApi } from "../api";
 
 export function useLogin(accessToken) {
   const [isLogin, setIsLogin] = useState(false);

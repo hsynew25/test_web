@@ -1,0 +1,14 @@
+.menu {
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 0 5px #d2d2d2;
+  z-index: 1000;
+  inset: 5px auto auto -45px !important;
+  transform: translate3d(0px, 32px, 0px) !important;
+}
+
+@media screen and (min-width: 768px) {
+  .menu {
+    inset: 15px auto auto 115px !important;
+  }
+}
