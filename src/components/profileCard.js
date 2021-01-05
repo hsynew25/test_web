@@ -105,15 +105,16 @@ const Introduction = styled.p`
   }
 `;
 
-const ProfileCard = () => {
+const ProfileCard = ({ myProfile }) => {
+  const { profileImg, nickname, job, introduction } = myProfile;
   return (
     <Container>
       <ImgWrap>
-        <Img src={basicProfile} />
+        <Img src={profileImg === "" ? basicProfile : profileImg} />
       </ImgWrap>
       <InfoWrap>
-        <Nickname>나는 누구</Nickname>
-        <Occupation>Developer</Occupation>
+        <Nickname>{nickname}</Nickname>
+        <Occupation>{job}</Occupation>
         <Follow>
           <FollowWrap>
             <FollowTitle>팔로워</FollowTitle>
@@ -125,9 +126,7 @@ const ProfileCard = () => {
           </FollowWrap>
         </Follow>
       </InfoWrap>
-      <Introduction>
-        안녕하세요 프론트엔드 개발자입니다. 제 책상이나 실컷 보세요.
-      </Introduction>
+      <Introduction>{introduction}</Introduction>
     </Container>
   );
 };
