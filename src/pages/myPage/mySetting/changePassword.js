@@ -52,10 +52,24 @@ const SubmitButton = styled.button`
   margin-top: 40px;
 `;
 
+const CheckMsg = styled.div`
+  color: #e00000;
+  font-size: 13px;
+  margin-top: 5px;
+`;
+
 const ChangePassword = () => {
   const [curPassword, setCurPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [checkPassword, setCheckPassword] = useState("");
+
+  const PasswordCheckMsg = () => {
+    if (checkPassword) {
+      if (newPassword !== checkPassword) {
+        return <CheckMsg>패스워드가 일치하지 않습니다</CheckMsg>;
+      }
+    }
+  };
 
   return (
     <Container>
@@ -97,6 +111,7 @@ const ChangePassword = () => {
             required
             onChange={(e) => setCheckPassword(e.currentTarget.value)}
           />
+          {PasswordCheckMsg()}
         </InputWrap>
         <SubmitButton>비밀번호 변경</SubmitButton>
       </Form>
