@@ -3,12 +3,13 @@
   background-color: #fff;
   box-shadow: 0 0 5px #d2d2d2;
   z-index: 1000;
-  inset: 5px auto auto -45px !important;
-  transform: translate3d(0px, 32px, 0px) !important;
+  inset: unset !important;
+  transform: translate(-65px, 10px) !important;
+  width: 100px;
 }
 
 @media screen and (min-width: 768px) {
   .menu {
-    inset: 15px auto auto 115px !important;
+    transform: translate(0, 10px) !important;
   }
 }

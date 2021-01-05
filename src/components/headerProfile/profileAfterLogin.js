@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import basicProfile from "../img/basic_profile.png";
+import basicProfile from "../../img/basic_profile.png";
 import { Dropdown } from "react-bootstrap";
 import "./dropdown.css";
 import { useCookies } from "react-cookie";
