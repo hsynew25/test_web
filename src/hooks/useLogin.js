@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { userApi } from "../api";
 
 export function useLogin(accessToken) {
+  const [loading, setLoading] = useState(true);
   const [isLogin, setIsLogin] = useState(false);
 
   const loginValidation = async (accessToken) => {
+    setLoading(true);
     try {
       const { status } = await userApi.tokenValidation(accessToken);
       if (status === 200) {
@@ -14,6 +16,9 @@ export function useLogin(accessToken) {
       }
     } catch (error) {
       console.log(error);
+      setIsLogin(false);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -21,7 +26,8 @@ export function useLogin(accessToken) {
     if (accessToken) {
       loginValidation(accessToken);
     }
+    return setLoading(false);
   }, []);
 
-  return { isLogin };
+  return { isLogin, loading };
 }

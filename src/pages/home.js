@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Card from "../components/card";
 import Header from "../components/header";
+import Loader from "../components/loader";
 import { useGetMyProfile } from "../hooks/useGetMyProfile";
 import { useGetToken } from "../hooks/useGetToken";
 import { useLogin } from "../hooks/useLogin";
@@ -25,12 +26,17 @@ const Container = styled.div`
 
 const Home = () => {
   const { access_token } = useGetToken();
-  const { isLogin } = useLogin(access_token);
+  const { isLogin, loading } = useLogin(access_token);
+
+  console.log("home", isLogin, loading);
+
   const {
     myProfile: { nickname, profileImg },
   } = useGetMyProfile(access_token);
 
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <>
       <Header isLogin={isLogin} nickname={nickname} profileImg={profileImg} />
       <Container>

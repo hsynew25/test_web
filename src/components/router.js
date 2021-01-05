@@ -11,6 +11,7 @@ import Login from "../pages/login";
 import MyPage from "../pages/myPage/myPage";
 import SignUp from "../pages/signUp";
 import Upload from "../pages/upload";
+import PrivateRoute from "./privateRoute";
 
 export default () => {
   return (
@@ -19,9 +20,9 @@ export default () => {
         <Route path="/" exact component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} />
-        <Route path="/mypage" component={MyPage} />
         <Route path="/contents" component={ContentDetail} />
-        <Route path="/upload" component={Upload} />
+        <PrivateRoute exact path="/mypage" component={MyPage} />
+        <PrivateRoute path="/upload" component={Upload} />
         <Redirect from="*" to="/" />
       </Switch>
     </Router>
