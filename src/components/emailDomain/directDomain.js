@@ -25,17 +25,17 @@ const Button = styled.button`
 `;
 
 const DirectDomain = ({
-  isDirect,
+  isDirect = false,
   setIsDirect,
-  userEmailDomain,
-  setUserEmailDomain,
+  emailDomain = "",
+  setEmailDomain,
 }) => {
   return (
     <Container>
       <Input
         type="text"
-        value={isDirect ? userEmailDomain : ""}
-        onChange={(e) => setUserEmailDomain(e.currentTarget.value)}
+        value={isDirect ? emailDomain : ""}
+        onChange={(e) => setEmailDomain(e.currentTarget.value)}
         placeholder="입력하세요"
       />
       <Button onClick={() => setIsDirect(false)} />

@@ -17,22 +17,23 @@ const Select = styled.select`
 const Option = styled.option``;
 
 const SelectDomain = ({
-  isDirect,
+  isDirect = false,
   setIsDirect,
-  userEmailDomain,
-  setUserEmailDomain,
+  emailDomain = "default",
+  setEmailDomain,
 }) => {
   const handleChange = (e) => {
     if (e.target.value === "directInput") {
+      setEmailDomain("");
       setIsDirect(true);
     } else {
-      setUserEmailDomain(e.target.value);
+      setEmailDomain(e.target.value);
     }
   };
 
   return (
     <Select
-      defaultValue={isDirect ? "default" : userEmailDomain}
+      defaultValue={isDirect ? "default" : emailDomain}
       onChange={handleChange}
     >
       <Option value="default" disabled>

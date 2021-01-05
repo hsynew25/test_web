@@ -146,15 +146,15 @@ const SettingProfile = ({ myProfile }) => {
   const userEmail = email.split("@");
   const [userImg, setUserImg] = useState(profileImg);
   const [userNickname, setUserNickname] = useState(nickname);
-  const [userEmailId, setUserEmailId] = useState(userEmail[0]);
-  const [userEmailDomain, setUserEmailDomain] = useState(userEmail[1]);
+  const [emailId, setEmailId] = useState(userEmail[0]);
+  const [emailDomain, setEmailDomain] = useState(userEmail[1]);
   const [userJob, setUserJob] = useState(job);
   const [userLocation, setUserLocation] = useState(location);
   const [userIntroduction, setUserIntroduction] = useState(introduction);
   const [userSns, setUserSns] = useState(snsBundle);
 
   const [isDirect, setIsDirect] = useState(() => {
-    if (!REGISTERED_DOMAINS.includes(userEmailDomain)) {
+    if (!REGISTERED_DOMAINS.includes(emailDomain)) {
       return true;
     } else {
       return false;
@@ -213,23 +213,23 @@ const SettingProfile = ({ myProfile }) => {
               id="user_email"
               placeholder="이메일"
               flex={true}
-              value={userEmailId}
-              onChange={(e) => setUserEmailId(e.currentTarget.value)}
+              value={emailId}
+              onChange={(e) => setEmailId(e.currentTarget.value)}
             />
             <AtSign>@</AtSign>
             {isDirect ? (
               <DirectDomain
                 isDirect={isDirect}
                 setIsDirect={setIsDirect}
-                userEmailDomain={userEmailDomain}
-                setUserEmailDomain={setUserEmailDomain}
+                emailDomain={emailDomain}
+                setEmailDomain={setEmailDomain}
               />
             ) : (
               <SelectDomain
                 isDirect={isDirect}
                 setIsDirect={setIsDirect}
-                userEmailDomain={userEmailDomain}
-                setUserEmailDomain={setUserEmailDomain}
+                emailDomain={emailDomain}
+                setEmailDomain={setEmailDomain}
               />
             )}
           </EmailWrap>

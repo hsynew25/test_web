@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import InputSns from "../components/inputSns";
 import SelectDomain from "../components/emailDomain/selectDomain";
 import DirectDomain from "../components/emailDomain/directDomain";
 import plusIcon from "../img/plus.png";
 import Header from "../components/header";
+import { userApi } from "../api";
 
 const Container = styled.div`
   padding: 50px 30px;
@@ -78,13 +79,95 @@ const SubmitButton = styled.button`
   margin-top: 40px;
 `;
 
-const SignUp = () => {
+const CheckMsg = styled.div`
+  color: #e00000;
+  font-size: 13px;
+  margin-top: 5px;
+`;
+
+const REGISTERED_DOMAINS = [
+  "naver.com",
+  "gmail.com",
+  "hanmail.net",
+  "daum.net",
+  "nate.com",
+];
+
+const SignUp = ({ history }) => {
+  const [userId, setUserId] = useState("");
+  const [userPassword, setUserPassword] = useState("");
+  const [checkPassword, setCheckPassword] = useState("");
+  const [userNickname, setUserNickname] = useState("");
+  const [emailId, setEmailId] = useState("");
+  const [emailDomain, setEmailDomain] = useState("");
+  const [userJob, setUserJob] = useState("");
+  const [userLocation, setUserLocation] = useState("");
+  const [userSns, setUserSns] = useState([]);
+  const [isDirect, setIsDirect] = useState(false);
+
+  const addSnsClick = (e) => {
+    e.preventDefault();
+    if (userSns.length >= 3) return;
+    else {
+      setUserSns([...userSns, ""]);
+    }
+  };
+
+  const removeSnsClick = (e, index) => {
+    e.preventDefault();
+    if (userSns.length <= 0) return;
+    else {
+      setUserSns(userSns.filter((item, idx) => idx !== index));
+    }
+  };
+
+  const updateSns = (e, index) => {
+    setUserSns(
+      userSns.map((item, idx) => (idx === index ? e.target.value : item))
+    );
+  };
+
+  const PasswordCheckMsg = () => {
+    if (checkPassword) {
+      if (userPassword !== checkPassword) {
+        return <CheckMsg>패스워드가 일치하지 않습니다</CheckMsg>;
+      }
+    }
+  };
+
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+    const fullEmail = `${emailId}@${emailDomain}`;
+
+    try {
+      const response = await userApi.signUp(
+        userId,
+        fullEmail,
+        userPassword,
+        userNickname,
+        userJob,
+        userLocation,
+        userSns
+      );
+
+      if (response.status === 201) {
+        alert("🎉가입을 축하합니다🎉");
+        history.push("/");
+      }
+    } catch (error) {
+      console.log(error);
+      if (error.response.status === 403) {
+        alert("🚨중복중복🚨");
+      }
+    }
+  };
+
   return (
     <>
       <Header />
       <Container>
         <Title>회원가입</Title>
-        <Form>
+        <Form onSubmit={handleSignUp}>
           <InputWrap>
             <Label htmlFor="user_id">아이디 (필수)</Label>
             <InputInfo>8자 이상 입력해주세요.</InputInfo>
@@ -92,8 +175,10 @@ const SignUp = () => {
               type="text"
               id="user_id"
               placeholder="아이디"
+              value={userId}
               minLength="8"
               required
+              onChange={(e) => setUserId(e.currentTarget.value)}
             />
           </InputWrap>
           <InputWrap>
@@ -103,8 +188,10 @@ const SignUp = () => {
               type="password"
               id="user_password"
               placeholder="비밀번호"
+              value={userPassword}
               minLength="8"
               required
+              onChange={(e) => setUserPassword(e.currentTarget.value)}
             />
           </InputWrap>
           <InputWrap>
@@ -113,9 +200,12 @@ const SignUp = () => {
               type="password"
               id="user_checkPassword"
               placeholder="비밀번호 확인"
+              value={checkPassword}
               minLength="8"
               required
+              onChange={(e) => setCheckPassword(e.currentTarget.value)}
             />
+            {PasswordCheckMsg()}
           </InputWrap>
           <InputWrap>
             <Label htmlFor="user_nickname">닉네임(필수)</Label>
@@ -123,7 +213,9 @@ const SignUp = () => {
               type="text"
               id="user_nickname"
               placeholder="닉네임"
+              value={userNickname}
               required
+              onChange={(e) => setUserNickname(e.currentTarget.value)}
             />
           </InputWrap>
           <InputWrap>
@@ -133,27 +225,60 @@ const SignUp = () => {
                 type="text"
                 id="user_email"
                 placeholder="이메일"
+                value={emailId}
                 flex={true}
+                onChange={(e) => setEmailId(e.currentTarget.value)}
               />
               <AtSign>@</AtSign>
-              <SelectDomain />
-              {/* <DirectDomain /> */}
+              {isDirect ? (
+                <DirectDomain
+                  isDirect={isDirect}
+                  setIsDirect={setIsDirect}
+                  emailDomain={emailDomain}
+                  setEmailDomain={setEmailDomain}
+                />
+              ) : (
+                <SelectDomain
+                  isDirect={isDirect}
+                  setIsDirect={setIsDirect}
+                  setEmailDomain={setEmailDomain}
+                />
+              )}
             </EmailWrap>
           </InputWrap>
           <InputWrap>
             <Label htmlFor="user_job">직업</Label>
-            <Input type="text" id="user_job" placeholder="직업" />
+            <Input
+              type="text"
+              id="user_job"
+              placeholder="직업"
+              value={userJob}
+              onChange={(e) => setUserJob(e.currentTarget.value)}
+            />
           </InputWrap>
           <InputWrap>
             <Label htmlFor="user_location">지역</Label>
-            <Input type="text" id="user_location" placeholder="지역" />
+            <Input
+              type="text"
+              id="user_location"
+              placeholder="지역"
+              value={userLocation}
+              onChange={(e) => setUserLocation(e.currentTarget.value)}
+            />
           </InputWrap>
           <InputWrap>
             <Label htmlFor="user_sns">SNS</Label>
-            <AddSnsButton />
-            <InputSns />
+            <AddSnsButton onClick={addSnsClick} />
+            {userSns.map((item, idx) => (
+              <InputSns
+                key={idx}
+                sns={item}
+                updateSns={(e) => updateSns(e, idx)}
+                removeSnsClick={(e) => removeSnsClick(e, idx)}
+              />
+            ))}
           </InputWrap>
-          <SubmitButton>회원가입</SubmitButton>
+          <SubmitButton onClick={handleSignUp}>회원가입</SubmitButton>
         </Form>
       </Container>
     </>
