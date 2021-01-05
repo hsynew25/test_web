@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -53,19 +53,37 @@ const SubmitButton = styled.button`
 `;
 
 const ChangePassword = () => {
+  const [curPassword, setCurPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [checkPassword, setCheckPassword] = useState("");
+
   return (
     <Container>
       <Title>비밀번호 변경</Title>
       <Form>
         <InputWrap>
-          <Label htmlFor="user_password">비밀번호 *</Label>
+          <Label htmlFor="user_currentPassword">기존 비밀번호 *</Label>
+          <Input
+            type="password"
+            id="user_currentPassword"
+            placeholder="기존 비밀번호"
+            value={curPassword}
+            minLength="8"
+            required
+            onChange={(e) => setCurPassword(e.currentTarget.value)}
+          />
+        </InputWrap>
+        <InputWrap>
+          <Label htmlFor="user_password">새 비밀번호 *</Label>
           <InputInfo>8자 이상 입력해주세요.</InputInfo>
           <Input
             type="password"
             id="user_password"
-            placeholder="비밀번호"
+            placeholder="새 비밀번호"
+            value={newPassword}
             minLength="8"
             required
+            onChange={(e) => setNewPassword(e.currentTarget.value)}
           />
         </InputWrap>
         <InputWrap>
@@ -74,8 +92,10 @@ const ChangePassword = () => {
             type="password"
             id="user_checkPassword"
             placeholder="비밀번호 확인"
+            value={checkPassword}
             minLength="8"
             required
+            onChange={(e) => setCheckPassword(e.currentTarget.value)}
           />
         </InputWrap>
         <SubmitButton>비밀번호 변경</SubmitButton>

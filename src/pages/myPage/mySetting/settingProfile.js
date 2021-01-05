@@ -182,7 +182,7 @@ const SettingProfile = ({ myProfile }) => {
       userSns.map((item, idx) => (idx === index ? e.target.value : item))
     );
   };
-  console.log(userSns);
+
   return (
     <Container>
       <Title>회원정보 수정</Title>
