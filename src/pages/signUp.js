@@ -4,6 +4,7 @@ import InputSns from "../components/inputSns";
 import SelectDomain from "../components/emailDomain/selectDomain";
 import DirectDomain from "../components/emailDomain/directDomain";
 import plusIcon from "../img/plus.png";
+import Header from "../components/header";
 
 const Container = styled.div`
   padding: 50px 30px;
@@ -79,75 +80,83 @@ const SubmitButton = styled.button`
 
 const SignUp = () => {
   return (
-    <Container>
-      <Title>회원가입</Title>
-      <Form>
-        <InputWrap>
-          <Label htmlFor="user_id">아이디 (필수)</Label>
-          <InputInfo>8자 이상 입력해주세요.</InputInfo>
-          <Input
-            type="text"
-            id="user_id"
-            placeholder="아이디"
-            minLength="8"
-            required
-          />
-        </InputWrap>
-        <InputWrap>
-          <Label htmlFor="user_password">비밀번호 (필수)</Label>
-          <InputInfo>8자 이상 입력해주세요.</InputInfo>
-          <Input
-            type="password"
-            id="user_password"
-            placeholder="비밀번호"
-            minLength="8"
-            required
-          />
-        </InputWrap>
-        <InputWrap>
-          <Label htmlFor="user_checkPassword">비밀번호 확인(필수)</Label>
-          <Input
-            type="password"
-            id="user_checkPassword"
-            placeholder="비밀번호 확인"
-            minLength="8"
-            required
-          />
-        </InputWrap>
-        <InputWrap>
-          <Label htmlFor="user_nickname">닉네임(필수)</Label>
-          <Input type="text" id="user_nickname" placeholder="닉네임" required />
-        </InputWrap>
-        <InputWrap>
-          <Label htmlFor="user_email">이메일</Label>
-          <EmailWrap>
+    <>
+      <Header />
+      <Container>
+        <Title>회원가입</Title>
+        <Form>
+          <InputWrap>
+            <Label htmlFor="user_id">아이디 (필수)</Label>
+            <InputInfo>8자 이상 입력해주세요.</InputInfo>
             <Input
               type="text"
-              id="user_email"
-              placeholder="이메일"
-              flex={true}
+              id="user_id"
+              placeholder="아이디"
+              minLength="8"
+              required
             />
-            <AtSign>@</AtSign>
-            <SelectDomain />
-            {/* <DirectDomain /> */}
-          </EmailWrap>
-        </InputWrap>
-        <InputWrap>
-          <Label htmlFor="user_job">직업</Label>
-          <Input type="text" id="user_job" placeholder="직업" />
-        </InputWrap>
-        <InputWrap>
-          <Label htmlFor="user_location">지역</Label>
-          <Input type="text" id="user_location" placeholder="지역" />
-        </InputWrap>
-        <InputWrap>
-          <Label htmlFor="user_sns">SNS</Label>
-          <AddSnsButton />
-          <InputSns />
-        </InputWrap>
-        <SubmitButton>회원가입</SubmitButton>
-      </Form>
-    </Container>
+          </InputWrap>
+          <InputWrap>
+            <Label htmlFor="user_password">비밀번호 (필수)</Label>
+            <InputInfo>8자 이상 입력해주세요.</InputInfo>
+            <Input
+              type="password"
+              id="user_password"
+              placeholder="비밀번호"
+              minLength="8"
+              required
+            />
+          </InputWrap>
+          <InputWrap>
+            <Label htmlFor="user_checkPassword">비밀번호 확인(필수)</Label>
+            <Input
+              type="password"
+              id="user_checkPassword"
+              placeholder="비밀번호 확인"
+              minLength="8"
+              required
+            />
+          </InputWrap>
+          <InputWrap>
+            <Label htmlFor="user_nickname">닉네임(필수)</Label>
+            <Input
+              type="text"
+              id="user_nickname"
+              placeholder="닉네임"
+              required
+            />
+          </InputWrap>
+          <InputWrap>
+            <Label htmlFor="user_email">이메일</Label>
+            <EmailWrap>
+              <Input
+                type="text"
+                id="user_email"
+                placeholder="이메일"
+                flex={true}
+              />
+              <AtSign>@</AtSign>
+              <SelectDomain />
+              {/* <DirectDomain /> */}
+            </EmailWrap>
+          </InputWrap>
+          <InputWrap>
+            <Label htmlFor="user_job">직업</Label>
+            <Input type="text" id="user_job" placeholder="직업" />
+          </InputWrap>
+          <InputWrap>
+            <Label htmlFor="user_location">지역</Label>
+            <Input type="text" id="user_location" placeholder="지역" />
+          </InputWrap>
+          <InputWrap>
+            <Label htmlFor="user_sns">SNS</Label>
+            <AddSnsButton />
+            <InputSns />
+          </InputWrap>
+          <SubmitButton>회원가입</SubmitButton>
+        </Form>
+      </Container>
+    </>
   );
 };
 

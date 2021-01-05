@@ -75,12 +75,7 @@ const SLink = styled(Link)`
   vertical-align: top;
 `;
 
-const Header = () => {
-  const { access_token } = useGetToken();
-  const {
-    myProfile: { nickname, profileImg },
-  } = useGetMyProfile(access_token);
-  const { isLogin } = useLogin(access_token);
+const Header = ({ isLogin, nickname, profileImg }) => {
   return (
     <Container>
       <Wrap>

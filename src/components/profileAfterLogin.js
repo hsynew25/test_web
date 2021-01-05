@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import basicProfile from "../img/basic_profile.png";
 import { Dropdown } from "react-bootstrap";
-// import "bootstrap/dist/css/bootstrap.min.css";
 import "./dropdown.css";
+import { useCookies } from "react-cookie";
 
 const Container = styled.div`
   position: relative;
@@ -69,9 +69,12 @@ const LogoutButton = styled.button`
 `;
 
 const ProfileAfterLogin = ({ nickname, profileImg }) => {
-  const [isActive, setIsActive] = useState(false);
-  const handleDropbox = () => {
-    setIsActive(!isActive);
+  const [userCookies, setUserCookie, removeUserCookie] = useCookies([
+    "userToken",
+  ]);
+  const handleLogout = () => {
+    removeUserCookie("userToken");
+    window.location.reload(false);
   };
   return (
     <Container>
@@ -95,7 +98,7 @@ const ProfileAfterLogin = ({ nickname, profileImg }) => {
           </Dropdown.Item>
           <Dropdown.Item>
             <Item>
-              <LogoutButton>로그아웃</LogoutButton>
+              <LogoutButton onClick={handleLogout}>로그아웃</LogoutButton>
             </Item>
           </Dropdown.Item>
         </Dropdown.Menu>

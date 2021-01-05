@@ -8,6 +8,7 @@ import Sliders from "../components/slider/sliders";
 import CommentList from "../components/comment/commentList";
 import CommentItem from "../components/comment/commentItem";
 import WritingComment from "../components/comment/writingComment";
+import Header from "../components/header";
 
 const Container = styled.div`
   @media screen and (min-width: 768px) {
@@ -23,7 +24,7 @@ const Container = styled.div`
   }
 `;
 
-const Header = styled.div`
+const Headers = styled.div`
   display: flex;
   padding: 10px;
   @media screen and (min-width: 768px) {
@@ -160,42 +161,45 @@ const CommentWrap = styled.div`
 
 const ContentDetail = () => {
   return (
-    <Container>
-      <Header>
-        <ImgWrap>
-          <Img src={basicProfile} />
-        </ImgWrap>
-        <WriterWrap>
-          <Nickname>나는 누구</Nickname>
-          <Occupation>Developer</Occupation>
-        </WriterWrap>
-      </Header>
-      <SliderWrap>
-        <Sliders />
-      </SliderWrap>
-      <ButtonWrap>
-        <Button clicked={true} />
-        <Comment />
-      </ButtonWrap>
-      <Introduction>여기에 유저가 작성한 글이 들어갑니다. </Introduction>
-      <CountWrap>
-        <CounteTitle>
-          좋아요 <span>1334</span>개
-        </CounteTitle>
-        <CounteTitle>
-          댓글 <span>678</span>개
-        </CounteTitle>
-        <CounteTitle>
-          조회수 <span>9301</span>회
-        </CounteTitle>
-      </CountWrap>
-      <CommentWrap>
-        <WritingComment />
-        <CommentList>
-          <CommentItem />
-        </CommentList>
-      </CommentWrap>
-    </Container>
+    <>
+      <Header />
+      <Container>
+        <Headers>
+          <ImgWrap>
+            <Img src={basicProfile} />
+          </ImgWrap>
+          <WriterWrap>
+            <Nickname>나는 누구</Nickname>
+            <Occupation>Developer</Occupation>
+          </WriterWrap>
+        </Headers>
+        <SliderWrap>
+          <Sliders />
+        </SliderWrap>
+        <ButtonWrap>
+          <Button clicked={true} />
+          <Comment />
+        </ButtonWrap>
+        <Introduction>여기에 유저가 작성한 글이 들어갑니다. </Introduction>
+        <CountWrap>
+          <CounteTitle>
+            좋아요 <span>1334</span>개
+          </CounteTitle>
+          <CounteTitle>
+            댓글 <span>678</span>개
+          </CounteTitle>
+          <CounteTitle>
+            조회수 <span>9301</span>회
+          </CounteTitle>
+        </CountWrap>
+        <CommentWrap>
+          <WritingComment />
+          <CommentList>
+            <CommentItem />
+          </CommentList>
+        </CommentWrap>
+      </Container>
+    </>
   );
 };
 

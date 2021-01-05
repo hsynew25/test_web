@@ -3,6 +3,7 @@ import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { userApi } from "../api";
+import Header from "../components/header";
 import Loader from "../components/loader";
 
 const Container = styled.div`
@@ -90,29 +91,32 @@ const Login = ({ history }) => {
     }
   };
   return (
-    <Container>
-      {loading && <Loader />}
-      <Form onSubmit={onSubmit}>
-        <Input
-          type="text"
-          placeholder="아이디"
-          autoFocus="autofocus"
-          value={userId}
-          onChange={(e) => setUserId(e.currentTarget.value)}
-        />
-        <Input
-          type="password"
-          placeholder="비밀번호"
-          value={userPassword}
-          onChange={(e) => setUserPassword(e.currentTarget.value)}
-        />
-        <Button onClick={onSubmit}>로그인</Button>
-      </Form>
-      <Wrap>
-        <SLink to="/">아이디/비밀번호 찾기</SLink>
-        <SLink to="/signup">회원가입</SLink>
-      </Wrap>
-    </Container>
+    <>
+      <Header />
+      <Container>
+        {loading && <Loader />}
+        <Form onSubmit={onSubmit}>
+          <Input
+            type="text"
+            placeholder="아이디"
+            autoFocus="autofocus"
+            value={userId}
+            onChange={(e) => setUserId(e.currentTarget.value)}
+          />
+          <Input
+            type="password"
+            placeholder="비밀번호"
+            value={userPassword}
+            onChange={(e) => setUserPassword(e.currentTarget.value)}
+          />
+          <Button onClick={onSubmit}>로그인</Button>
+        </Form>
+        <Wrap>
+          <SLink to="/">아이디/비밀번호 찾기</SLink>
+          <SLink to="/signup">회원가입</SLink>
+        </Wrap>
+      </Container>
+    </>
   );
 };
 

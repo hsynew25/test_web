@@ -18,7 +18,9 @@ export function useLogin(accessToken) {
   };
 
   useEffect(() => {
-    loginValidation(accessToken);
+    if (accessToken) {
+      loginValidation(accessToken);
+    }
   }, []);
 
   return { isLogin };

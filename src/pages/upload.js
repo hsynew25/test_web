@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import Header from "../components/header";
 import UploadedItem from "../components/uploadContents/uploadedItem";
 import UploadInput from "../components/uploadContents/uploadInput";
 
@@ -122,22 +123,25 @@ const Upload = () => {
   const [images, setImages] = useState([]); // client에게 보여줄 이미지(url)를 담은 배열
 
   return (
-    <Container>
-      <Title>업로드</Title>
-      <ButtonWrap>
-        <Button>취소</Button>
-        <Button color="#77c4a3">게시</Button>
-      </ButtonWrap>
-      <ContentWrap>
-        <ItemWrap>
-          {images.map((item, index) => (
-            <UploadedItem key={index} image={URL.createObjectURL(item)} />
-          ))}
-          <UploadInput images={images} setImages={setImages} />
-        </ItemWrap>
-        <Textarea placeholder="여기에 내용(설명)을 입력하세요" />
-      </ContentWrap>
-    </Container>
+    <>
+      <Header />
+      <Container>
+        <Title>업로드</Title>
+        <ButtonWrap>
+          <Button>취소</Button>
+          <Button color="#77c4a3">게시</Button>
+        </ButtonWrap>
+        <ContentWrap>
+          <ItemWrap>
+            {images.map((item, index) => (
+              <UploadedItem key={index} image={URL.createObjectURL(item)} />
+            ))}
+            <UploadInput images={images} setImages={setImages} />
+          </ItemWrap>
+          <Textarea placeholder="여기에 내용(설명)을 입력하세요" />
+        </ContentWrap>
+      </Container>
+    </>
   );
 };
 

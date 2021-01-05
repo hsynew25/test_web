@@ -1,6 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import Card from "../components/card";
+import Header from "../components/header";
+import { useGetMyProfile } from "../hooks/useGetMyProfile";
+import { useGetToken } from "../hooks/useGetToken";
+import { useLogin } from "../hooks/useLogin";
 
 const Container = styled.div`
   padding: 20px 15px;
@@ -20,14 +24,23 @@ const Container = styled.div`
 `;
 
 const Home = () => {
+  const { access_token } = useGetToken();
+  const { isLogin } = useLogin(access_token);
+  const {
+    myProfile: { nickname, profileImg },
+  } = useGetMyProfile(access_token);
+
   return (
-    <Container>
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-    </Container>
+    <>
+      <Header isLogin={isLogin} nickname={nickname} profileImg={profileImg} />
+      <Container>
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+      </Container>
+    </>
   );
 };
 

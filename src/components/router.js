@@ -11,12 +11,10 @@ import Login from "../pages/login";
 import MyPage from "../pages/myPage/myPage";
 import SignUp from "../pages/signUp";
 import Upload from "../pages/upload";
-import Header from "./header";
 
 export default () => {
   return (
     <Router>
-      <Header />
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/login" component={Login} />
