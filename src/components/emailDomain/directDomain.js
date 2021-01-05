@@ -24,11 +24,21 @@ const Button = styled.button`
   background: url(${cancelIcon}) no-repeat 10px 13px/10px 10px;
 `;
 
-const DirectDomain = () => {
+const DirectDomain = ({
+  isDirect,
+  setIsDirect,
+  userEmailDomain,
+  setUserEmailDomain,
+}) => {
   return (
     <Container>
-      <Input type="text" placeholder="입력하세요" />
-      <Button />
+      <Input
+        type="text"
+        value={isDirect ? userEmailDomain : ""}
+        onChange={(e) => setUserEmailDomain(e.currentTarget.value)}
+        placeholder="입력하세요"
+      />
+      <Button onClick={() => setIsDirect(false)} />
     </Container>
   );
 };

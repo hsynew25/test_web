@@ -1,5 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import Header from "../../components/header";
+import { useGetMyProfile } from "../../hooks/useGetMyProfile";
+import { useGetToken } from "../../hooks/useGetToken";
+import { useLogin } from "../../hooks/useLogin";
 import MyProfile from "./myProfile/myProfile";
 import MySetting from "./mySetting/mySetting";
 
@@ -25,15 +29,44 @@ const Item = styled.li`
 `;
 
 const MyPage = () => {
+  const { access_token } = useGetToken();
+  const { isLogin } = useLogin(access_token);
+  const { myProfile } = useGetMyProfile(access_token);
+  const [activeTab, setActiveTab] = useState("profile");
+  const obj = {
+    profile: <MyProfile myProfile={myProfile} />,
+    setting: <MySetting myProfile={myProfile} />,
+  };
+
+  const handleClick = (tabId) => {
+    setActiveTab(tabId);
+  };
+
   return (
-    <Container>
-      <List>
-        <Item active={true}>프로필</Item>
-        <Item>설정</Item>
-      </List>
-      <MyProfile />
-      {/* <MySetting /> */}
-    </Container>
+    <>
+      <Header
+        isLogin={isLogin}
+        nickname={myProfile.nickname}
+        profileImg={myProfile.profileImg}
+      />
+      <Container>
+        <List>
+          <Item
+            active={activeTab === "profile"}
+            onClick={() => handleClick("profile")}
+          >
+            프로필
+          </Item>
+          <Item
+            active={activeTab === "setting"}
+            onClick={() => handleClick("setting")}
+          >
+            설정
+          </Item>
+        </List>
+        {obj[activeTab]}
+      </Container>
+    </>
   );
 };
 

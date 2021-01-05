@@ -16,9 +16,25 @@ const Select = styled.select`
 
 const Option = styled.option``;
 
-const SelectDomain = () => {
+const SelectDomain = ({
+  isDirect,
+  setIsDirect,
+  userEmailDomain,
+  setUserEmailDomain,
+}) => {
+  const handleChange = (e) => {
+    if (e.target.value === "directInput") {
+      setIsDirect(true);
+    } else {
+      setUserEmailDomain(e.target.value);
+    }
+  };
+
   return (
-    <Select defaultValue="default">
+    <Select
+      defaultValue={isDirect ? "default" : userEmailDomain}
+      onChange={handleChange}
+    >
       <Option value="default" disabled>
         선택하세요
       </Option>

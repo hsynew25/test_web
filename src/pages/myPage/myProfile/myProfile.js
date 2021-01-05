@@ -5,10 +5,10 @@ import MyProfileTab from "../../../components/myProfileTab";
 
 const Container = styled.div``;
 
-const MyProfile = () => {
+const MyProfile = ({ myProfile }) => {
   return (
     <Container>
-      <ProfileCard />
+      <ProfileCard myProfile={myProfile} />
       <MyProfileTab />
     </Container>
   );

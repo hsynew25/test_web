@@ -5,6 +5,10 @@ import minusIcon from "../img/minus.png";
 const Container = styled.div`
   position: relative;
   width: 100%;
+
+  &:not(:first-child) {
+    margin-top: 5px;
+  }
 `;
 
 const Input = styled.input`
@@ -25,11 +29,11 @@ const Button = styled.button`
   background: url(${minusIcon}) no-repeat 11px 13px/ 10px 10px;
 `;
 
-const InputSns = () => {
+const InputSns = ({ sns, updateSns, removeSnsClick }) => {
   return (
     <Container>
-      <Input type="text" placeholder="SNS" />
-      <Button />
+      <Input type="text" value={sns} placeholder="SNS" onChange={updateSns} />
+      <Button onClick={removeSnsClick} />
     </Container>
   );
 };

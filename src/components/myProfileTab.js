@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import ViewMyLikes from "../pages/myPage/myProfile/viewMyLikes";
 import ViewMyUploads from "../pages/myPage/myProfile/viewMyUploads";
@@ -29,14 +29,33 @@ const Item = styled.li`
 `;
 
 const MyProfileTab = () => {
+  const [activeTab, setActiveTab] = useState("myUpload");
+  const obj = {
+    myUpload: <ViewMyUploads />,
+    myLikes: <ViewMyLikes />,
+  };
+
+  const handleClick = (tabId) => {
+    setActiveTab(tabId);
+  };
+
   return (
     <Container>
       <List>
-        <Item active={true}>내 업로드</Item>
-        <Item>내 좋아요</Item>
+        <Item
+          active={activeTab === "myUpload"}
+          onClick={() => handleClick("myUpload")}
+        >
+          내 업로드
+        </Item>
+        <Item
+          active={activeTab === "myLikes"}
+          onClick={() => handleClick("myLikes")}
+        >
+          내 좋아요
+        </Item>
       </List>
-      <ViewMyUploads />
-      {/* <ViewMyLikes /> */}
+      {obj[activeTab]}
     </Container>
   );
 };

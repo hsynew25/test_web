@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import ChangePassword from "./changePassword";
 import SettingProfile from "./settingProfile";
@@ -20,15 +20,34 @@ const Item = styled.li`
   color: ${(props) => (props.active ? "#2f2f2f" : "#72787f")};
 `;
 
-const MySetting = () => {
+const MySetting = ({ myProfile }) => {
+  const [activeTab, setActiveTab] = useState("settingProfile");
+  const obj = {
+    settingProfile: <SettingProfile myProfile={myProfile} />,
+    changePassword: <ChangePassword />,
+  };
+
+  const handleClick = (tabId) => {
+    setActiveTab(tabId);
+  };
+
   return (
     <Container>
       <List>
-        <Item active={true}>회원정보수정</Item>
-        <Item>비밀번호 변경</Item>
+        <Item
+          active={activeTab === "settingProfile"}
+          onClick={() => handleClick("settingProfile")}
+        >
+          회원정보수정
+        </Item>
+        <Item
+          active={activeTab === "changePassword"}
+          onClick={() => handleClick("changePassword")}
+        >
+          비밀번호 변경
+        </Item>
       </List>
-      <SettingProfile />
-      {/* <ChangePassword /> */}
+      {obj[activeTab]}
     </Container>
   );
 };

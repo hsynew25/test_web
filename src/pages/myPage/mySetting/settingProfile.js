@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import plusIcon from "../../../img/plus.png";
 import basicProfile from "../../../img/basic_profile.png";
@@ -120,21 +120,90 @@ const SubmitButton = styled.button`
   margin-top: 40px;
 `;
 
-const SettingProfile = () => {
+const SnsWrap = styled.div`
+  width: 100%;
+`;
+
+const REGISTERED_DOMAINS = [
+  "naver.com",
+  "gmail.com",
+  "hanmail.net",
+  "daum.net",
+  "nate.com",
+];
+
+const SettingProfile = ({ myProfile }) => {
+  const {
+    profileImg,
+    nickname,
+    email,
+    job,
+    location,
+    introduction,
+    snsBundle,
+  } = myProfile;
+
+  const userEmail = email.split("@");
+  const [userImg, setUserImg] = useState(profileImg);
+  const [userNickname, setUserNickname] = useState(nickname);
+  const [userEmailId, setUserEmailId] = useState(userEmail[0]);
+  const [userEmailDomain, setUserEmailDomain] = useState(userEmail[1]);
+  const [userJob, setUserJob] = useState(job);
+  const [userLocation, setUserLocation] = useState(location);
+  const [userIntroduction, setUserIntroduction] = useState(introduction);
+  const [userSns, setUserSns] = useState(snsBundle);
+
+  const [isDirect, setIsDirect] = useState(() => {
+    if (!REGISTERED_DOMAINS.includes(userEmailDomain)) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+
+  const addSnsClick = (e) => {
+    e.preventDefault();
+    if (userSns.length >= 3) return;
+    else {
+      setUserSns([...userSns, ""]);
+    }
+  };
+
+  const removeSnsClick = (e, index) => {
+    e.preventDefault();
+    if (userSns.length <= 0) return;
+    else {
+      setUserSns(userSns.filter((item, idx) => idx !== index));
+    }
+  };
+
+  const updateSns = (e, index) => {
+    setUserSns(
+      userSns.map((item, idx) => (idx === index ? e.target.value : item))
+    );
+  };
+  console.log(userSns);
   return (
     <Container>
       <Title>회원정보 수정</Title>
       <Form>
         <SetImgWrap>
           <ImgWrap>
-            <Img src={basicProfile} />
+            <Img src={userImg === "" ? basicProfile : userImg} />
           </ImgWrap>
           <ImgLabel htmlFor="user_profileImg">프로필 이미지 변경</ImgLabel>
           <InputFile type="file" id="user_profileImg" accept=".jpg, .png" />
         </SetImgWrap>
         <InputWrap>
           <Label htmlFor="user_nickname">닉네임*</Label>
-          <Input type="text" id="user_nickname" placeholder="닉네임" required />
+          <Input
+            type="text"
+            id="user_nickname"
+            placeholder="닉네임"
+            value={userNickname}
+            onChange={(e) => setUserNickname(e.currentTarget.value)}
+            required
+          />
         </InputWrap>
         <InputWrap>
           <Label htmlFor="user_email">이메일</Label>
@@ -144,28 +213,67 @@ const SettingProfile = () => {
               id="user_email"
               placeholder="이메일"
               flex={true}
+              value={userEmailId}
+              onChange={(e) => setUserEmailId(e.currentTarget.value)}
             />
             <AtSign>@</AtSign>
-            <SelectDomain />
-            {/* <DirectDomain /> */}
+            {isDirect ? (
+              <DirectDomain
+                isDirect={isDirect}
+                setIsDirect={setIsDirect}
+                userEmailDomain={userEmailDomain}
+                setUserEmailDomain={setUserEmailDomain}
+              />
+            ) : (
+              <SelectDomain
+                isDirect={isDirect}
+                setIsDirect={setIsDirect}
+                userEmailDomain={userEmailDomain}
+                setUserEmailDomain={setUserEmailDomain}
+              />
+            )}
           </EmailWrap>
         </InputWrap>
         <InputWrap>
           <Label htmlFor="user_job">직업</Label>
-          <Input type="text" id="user_job" placeholder="직업" />
+          <Input
+            type="text"
+            id="user_job"
+            value={userJob}
+            placeholder="직업"
+            onChange={(e) => setUserJob(e.currentTarget.value)}
+          />
         </InputWrap>
         <InputWrap>
           <Label htmlFor="user_location">지역</Label>
-          <Input type="text" id="user_location" placeholder="지역" />
+          <Input
+            type="text"
+            id="user_location"
+            value={userLocation}
+            placeholder="지역"
+            onChange={(e) => setUserLocation(e.currentTarget.value)}
+          />
         </InputWrap>
         <InputWrap>
           <Label htmlFor="user_introduction">소개</Label>
-          <Textarea />
+          <Textarea
+            value={userIntroduction}
+            onChange={(e) => setUserIntroduction(e.currentTarget.value)}
+          />
         </InputWrap>
         <InputWrap>
           <Label htmlFor="user_sns">SNS</Label>
-          <AddSnsButton />
-          <InputSns />
+          <AddSnsButton onClick={addSnsClick} />
+          <SnsWrap>
+            {userSns.map((item, idx) => (
+              <InputSns
+                key={idx}
+                sns={item}
+                updateSns={(e) => updateSns(e, idx)}
+                removeSnsClick={(e) => removeSnsClick(e, idx)}
+              />
+            ))}
+          </SnsWrap>
         </InputWrap>
         <SubmitButton>회원정보수정</SubmitButton>
       </Form>
