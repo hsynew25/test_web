@@ -28,11 +28,11 @@ const Item = styled.li`
   color: ${(props) => (props.active ? "#2f2f2f" : "#72787f")};
 `;
 
-const MyProfileTab = () => {
+const MyProfileTab = ({ accessToken }) => {
   const [activeTab, setActiveTab] = useState("myUpload");
   const obj = {
-    myUpload: <ViewMyUploads />,
-    myLikes: <ViewMyLikes />,
+    myUpload: <ViewMyUploads accessToken={accessToken} />,
+    myLikes: <ViewMyLikes accessToken={accessToken} />,
   };
 
   const handleClick = (tabId) => {

@@ -5,11 +5,11 @@ import MyProfileTab from "../../../components/myProfileTab";
 
 const Container = styled.div``;
 
-const MyProfile = ({ myProfile }) => {
+const MyProfile = ({ myProfile, accessToken }) => {
   return (
     <Container>
       <ProfileCard myProfile={myProfile} />
-      <MyProfileTab />
+      <MyProfileTab accessToken={accessToken} />
     </Container>
   );
 };

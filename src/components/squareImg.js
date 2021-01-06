@@ -33,11 +33,16 @@ const Img = styled.img`
   object-fit: cover;
 `;
 
-const SquareImg = () => {
+const SquareImg = ({ item }) => {
   return (
-    <SLink to="/">
+    <SLink
+      to={{
+        pathname: `contents/${item.id}`,
+        state: { item },
+      }}
+    >
       <ImgWrap>
-        <Img src={sampleDesk} />
+        <Img src={item.images[0]} />
       </ImgWrap>
     </SLink>
   );
