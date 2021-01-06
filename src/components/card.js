@@ -37,7 +37,8 @@ const Img = styled.img`
   top: 0;
   left: 0;
   min-height: 100%;
-  padding: 10px;
+  padding: 10px 10px 0;
+  object-fit: cover;
 `;
 
 const CardInfo = styled.div`
