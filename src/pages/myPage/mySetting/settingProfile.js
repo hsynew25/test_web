@@ -26,13 +26,14 @@ const ImgWrap = styled.div`
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  display: block;
   margin: 0 auto;
   overflow: hidden;
 `;
 
 const Img = styled.img`
   width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 
 const ImgLabel = styled.label`
@@ -189,10 +190,17 @@ const SettingProfile = ({ myProfile }) => {
       <Form>
         <SetImgWrap>
           <ImgWrap>
-            <Img src={userImg === "" ? basicProfile : userImg} />
+            <Img
+              src={userImg === "" ? basicProfile : URL.createObjectURL(userImg)}
+            />
           </ImgWrap>
           <ImgLabel htmlFor="user_profileImg">프로필 이미지 변경</ImgLabel>
-          <InputFile type="file" id="user_profileImg" accept=".jpg, .png" />
+          <InputFile
+            type="file"
+            id="user_profileImg"
+            accept=".jpg, .png"
+            onChange={(e) => setUserImg(e.target.files[0])}
+          />
         </SetImgWrap>
         <InputWrap>
           <Label htmlFor="user_nickname">닉네임*</Label>
