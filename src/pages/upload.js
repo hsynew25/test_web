@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Header from "../components/header";
+import Loader from "../components/loader";
 import UploadedItem from "../components/uploadContents/uploadedItem";
 import UploadInput from "../components/uploadContents/uploadInput";
+import { useGetMyProfile } from "../hooks/useGetMyProfile";
+import { useGetToken } from "../hooks/useGetToken";
+import { useLogin } from "../hooks/useLogin";
 
 const Container = styled.div`
   position: relative;
@@ -120,11 +124,20 @@ const Textarea = styled.textarea`
 `;
 
 const Upload = () => {
+  const { access_token } = useGetToken();
+  const { isLogin, loading } = useLogin(access_token);
+
+  const {
+    myProfile: { nickname, profileImg },
+  } = useGetMyProfile(access_token);
+
   const [images, setImages] = useState([]); // client에게 보여줄 이미지(url)를 담은 배열
 
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <>
-      <Header />
+      <Header isLogin={isLogin} nickname={nickname} profileImg={profileImg} />
       <Container>
         <Title>업로드</Title>
         <ButtonWrap>
