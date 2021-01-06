@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { contentApi } from "../api";
 import Header from "../components/header";
 import Loader from "../components/loader";
 import UploadedItem from "../components/uploadContents/uploadedItem";
@@ -134,9 +135,11 @@ const Upload = ({ history }) => {
     myProfile: { nickname, profileImg },
   } = useGetMyProfile(access_token);
 
-  const [images, setImages] = useState([]); // client에게 보여줄 이미지(url)를 담은 배열
+  const [images, setImages] = useState([]); // 이미지파일(file)을 담은 배열
+  const [description, setDescription] = useState("");
+  const [isloading, setIsLoading] = useState(false);
 
-  const handleOut = () => history.goBack();
+  const handleOut = () => history.go(-1);
   const handleNoOut = () => null;
 
   const confirmCancel = useConfirm(
@@ -145,19 +148,47 @@ const Upload = ({ history }) => {
     handleNoOut
   );
 
-  console.log(images);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    if (images.length <= 0) {
+      alert("최소 한 개 이상의 이미지를 올려야 합니다~🥺");
+      setIsLoading(false);
+      return;
+    }
+    const formData = new FormData();
+    images.forEach((file) => {
+      formData.append("images", file);
+    });
+    formData.append("description", description);
 
-  return loading ? (
-    <Loader />
-  ) : (
+    try {
+      const response = await contentApi.upload(formData, access_token);
+
+      if (response.status === 200) {
+        setIsLoading(false);
+        alert("WOW~ 성공적으로 게시되었습니다 🙌");
+        history.push("/mypage");
+      }
+    } catch (error) {
+      console.log(error, error.response);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
     <>
+      {(loading || isloading) && <Loader />}
       <Header isLogin={isLogin} nickname={nickname} profileImg={profileImg} />
       <Container>
         <Title>업로드</Title>
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <ButtonWrap>
             <Button onClick={confirmCancel}>취소</Button>
-            <Button color="#77c4a3">게시</Button>
+            <Button onClick={handleSubmit} color="#77c4a3">
+              게시
+            </Button>
           </ButtonWrap>
           <ContentWrap>
             <ItemWrap>
@@ -166,7 +197,11 @@ const Upload = ({ history }) => {
               ))}
               <UploadInput images={images} setImages={setImages} />
             </ItemWrap>
-            <Textarea placeholder="여기에 내용(설명)을 입력하세요" />
+            <Textarea
+              placeholder="여기에 내용(설명)을 입력하세요"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
           </ContentWrap>
         </Form>
       </Container>
