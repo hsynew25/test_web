@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import sampleDesk from "../img/sample_desk.jpeg";
-import sampleDesk2 from "../img/sample_desk2.jpeg";
 import basicProfile from "../img/basic_profile.png";
 import emptyHeart from "../img/empty_heart.png";
 import fillHeart from "../img/fill_heart.png";

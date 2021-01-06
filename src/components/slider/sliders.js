@@ -3,8 +3,6 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./sliders.css";
-import sampleDesk from "../../img/sample_desk.jpeg";
-import sampleDesk2 from "../../img/sample_desk2.jpeg";
 import SlideItem from "./slideItem";
 
 function SampleNextArrow(props) {

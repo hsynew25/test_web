@@ -85,14 +85,6 @@ const CheckMsg = styled.div`
   margin-top: 5px;
 `;
 
-const REGISTERED_DOMAINS = [
-  "naver.com",
-  "gmail.com",
-  "hanmail.net",
-  "daum.net",
-  "nate.com",
-];
-
 const SignUp = ({ history }) => {
   const [userId, setUserId] = useState("");
   const [userPassword, setUserPassword] = useState("");

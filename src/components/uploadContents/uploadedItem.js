@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import sampleDesk from "../../img/sample_desk.jpeg";
 
 const Img = styled.img`
   width: 80px;

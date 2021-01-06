@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Redirect, Route } from "react-router-dom";
 import { userApi } from "../api";
 import { useGetToken } from "../hooks/useGetToken";
-import { useLogin } from "../hooks/useLogin";
 import Loader from "./loader";
 
 const PrivateRoute = ({ component: Component, location, ...rest }) => {

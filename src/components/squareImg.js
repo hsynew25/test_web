@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import sampleDesk from "../img/sample_desk.jpeg";
 
 const SLink = styled(Link)`
   flex: 0 0 33.333%;

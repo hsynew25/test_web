@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import basicProfile from "../../img/basic_profile.png";
@@ -8,11 +8,6 @@ import { useCookies } from "react-cookie";
 
 const Container = styled.div`
   position: relative;
-`;
-
-const Button = styled.button`
-  vertical-align: top;
-  display: inline-block;
 `;
 
 const Nickname = styled.span`

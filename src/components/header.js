@@ -2,9 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../img/logo.png";
-import { useGetMyProfile } from "../hooks/useGetMyProfile";
-import { useGetToken } from "../hooks/useGetToken";
-import { useLogin } from "../hooks/useLogin";
 import ProfileAfterLogin from "./headerProfile/profileAfterLogin";
 
 const Container = styled.div`
