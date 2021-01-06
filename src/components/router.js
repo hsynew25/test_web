@@ -20,8 +20,8 @@ export default () => {
         <Route path="/" exact component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} />
-        <Route path="/contents" component={ContentDetail} />
-        <PrivateRoute exact path="/mypage" component={MyPage} />
+        <Route path="/contents/:id" component={ContentDetail} />
+        <PrivateRoute path="/mypage" component={MyPage} />
         <PrivateRoute path="/upload" component={Upload} />
         <Redirect from="*" to="/" />
       </Switch>
