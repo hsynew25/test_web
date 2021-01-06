@@ -35,7 +35,7 @@ const MyPage = () => {
   const [activeTab, setActiveTab] = useState("profile");
   const obj = {
     profile: <MyProfile myProfile={myProfile} accessToken={access_token} />,
-    setting: <MySetting myProfile={myProfile} />,
+    setting: <MySetting myProfile={myProfile} accessToken={access_token} />,
   };
 
   const handleClick = (tabId) => {

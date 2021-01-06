@@ -20,10 +20,12 @@ const Item = styled.li`
   color: ${(props) => (props.active ? "#2f2f2f" : "#72787f")};
 `;
 
-const MySetting = ({ myProfile }) => {
+const MySetting = ({ myProfile, accessToken }) => {
   const [activeTab, setActiveTab] = useState("settingProfile");
   const obj = {
-    settingProfile: <SettingProfile myProfile={myProfile} />,
+    settingProfile: (
+      <SettingProfile myProfile={myProfile} accessToken={accessToken} />
+    ),
     changePassword: <ChangePassword />,
   };
 

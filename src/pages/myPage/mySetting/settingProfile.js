@@ -5,6 +5,7 @@ import basicProfile from "../../../img/basic_profile.png";
 import SelectDomain from "../../../components/emailDomain/selectDomain";
 import DirectDomain from "../../../components/emailDomain/directDomain";
 import InputSns from "../../../components/inputSns";
+import { userApi } from "../../../api";
 
 const Container = styled.div`
   padding: 40px 30px;
@@ -20,6 +21,12 @@ const Form = styled.form``;
 
 const SetImgWrap = styled.div`
   margin-top: 40px;
+`;
+
+const ImgOuterWrap = styled.div`
+  position: relative;
+  width: 100px;
+  margin: 0 auto;
 `;
 
 const ImgWrap = styled.div`
@@ -44,6 +51,13 @@ const ImgLabel = styled.label`
   text-align: center;
   color: #77c4a3;
   font-size: 15px;
+`;
+
+const RemoveImgButton = styled.button`
+  font-size: 15px;
+  position: absolute;
+  top: -4px;
+  right: -10px;
 `;
 
 const InputFile = styled.input`
@@ -133,7 +147,7 @@ const REGISTERED_DOMAINS = [
   "nate.com",
 ];
 
-const SettingProfile = ({ myProfile }) => {
+const SettingProfile = ({ myProfile, accessToken }) => {
   const {
     profileImg,
     nickname,
@@ -184,16 +198,46 @@ const SettingProfile = ({ myProfile }) => {
     );
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    if (typeof userImg !== "string") {
+      formData.append("profileImg", userImg);
+    }
+    formData.append("nickname", userNickname);
+    formData.append("email", `${emailId}@${emailDomain}`);
+    formData.append("job", userJob);
+    formData.append("location", userLocation);
+    formData.append("introduction", userIntroduction);
+    userSns.forEach((item) => {
+      if (item !== "") {
+        formData.append("snsBundle", item);
+      }
+    });
+
+    try {
+      const response = await userApi.updateProfile(formData, accessToken);
+      console.log(response);
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
   return (
     <Container>
       <Title>회원정보 수정</Title>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <SetImgWrap>
-          <ImgWrap>
-            <Img
-              src={userImg === "" ? basicProfile : URL.createObjectURL(userImg)}
-            />
-          </ImgWrap>
+          <ImgOuterWrap>
+            <ImgWrap>
+              <Img
+                src={
+                  userImg === "" ? basicProfile : URL.createObjectURL(userImg)
+                }
+              />
+            </ImgWrap>
+            <RemoveImgButton onClick={() => setUserImg("")}>❌</RemoveImgButton>
+          </ImgOuterWrap>
           <ImgLabel htmlFor="user_profileImg">프로필 이미지 변경</ImgLabel>
           <InputFile
             type="file"
@@ -283,7 +327,7 @@ const SettingProfile = ({ myProfile }) => {
             ))}
           </SnsWrap>
         </InputWrap>
-        <SubmitButton>회원정보수정</SubmitButton>
+        <SubmitButton onSubmit={handleSubmit}>회원정보수정</SubmitButton>
       </Form>
     </Container>
   );
