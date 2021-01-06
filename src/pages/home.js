@@ -28,8 +28,6 @@ const Home = () => {
   const { access_token } = useGetToken();
   const { isLogin, loading } = useLogin(access_token);
 
-  console.log("home", isLogin, loading);
-
   const {
     myProfile: { nickname, profileImg },
   } = useGetMyProfile(access_token);
