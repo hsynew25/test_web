@@ -38,3 +38,27 @@ export const userApi = {
       },
     }),
 };
+
+export const contentApi = {
+  upload: (formData, accessToken) =>
+    api.post("content/upload", formData, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "multipart/form-data",
+      },
+    }),
+  getAll: (username) => api.get(`content/all/${username}?skip=0&limit=20`),
+  getContent: (id) => api.get(`content/${id}`),
+  getMe: (accessToken) =>
+    api.get("content/me", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }),
+  deleteContent: (accessToken, id) =>
+    api.delete(`content/${id}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }),
+};
