@@ -107,23 +107,30 @@ const CropDialog = ({
     setCroppedAreaPixels(croppedAreaPixels);
   }, []);
 
-  const getCroppedImage = useCallback(async () => {
-    try {
-      const croppedImage = await getCroppedImg(
-        image.url,
-        croppedAreaPixels,
-        rotation
-      );
+  const getCroppedImage = useCallback(
+    async (e) => {
+      e.preventDefault();
+      try {
+        const croppedImage = await getCroppedImg(
+          image.url,
+          croppedAreaPixels,
+          rotation
+        );
 
-      let file = new File([croppedImage], image.name);
-      setImages([...images, file]);
-      handleCancel();
-    } catch (e) {
-      console.error(e);
-    }
-  }, [croppedAreaPixels, rotation]);
+        let file = new File([croppedImage], image.name);
+        setImages([...images, file]);
+        setImage({ url: null, name: null });
+        setVisible(false);
+        handleInputReset();
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    [croppedAreaPixels, rotation]
+  );
 
-  const handleCancel = () => {
+  const handleCancel = (e) => {
+    e.preventDefault();
     setImage({ url: null, name: null });
     setVisible(false);
     handleInputReset();

@@ -4,6 +4,7 @@ import Header from "../components/header";
 import Loader from "../components/loader";
 import UploadedItem from "../components/uploadContents/uploadedItem";
 import UploadInput from "../components/uploadContents/uploadInput";
+import { useConfirm } from "../hooks/useConfirm";
 import { useGetMyProfile } from "../hooks/useGetMyProfile";
 import { useGetToken } from "../hooks/useGetToken";
 import { useLogin } from "../hooks/useLogin";
@@ -20,6 +21,8 @@ const Container = styled.div`
     border-radius: 10px;
   }
 `;
+
+const Form = styled.form``;
 
 const Title = styled.h1`
   font-size: 15px;
@@ -123,7 +126,7 @@ const Textarea = styled.textarea`
   }
 `;
 
-const Upload = () => {
+const Upload = ({ history }) => {
   const { access_token } = useGetToken();
   const { isLogin, loading } = useLogin(access_token);
 
@@ -133,6 +136,17 @@ const Upload = () => {
 
   const [images, setImages] = useState([]); // client에게 보여줄 이미지(url)를 담은 배열
 
+  const handleOut = () => history.goBack();
+  const handleNoOut = () => null;
+
+  const confirmCancel = useConfirm(
+    "이 페이지에서 나가시겠습니까?",
+    handleOut,
+    handleNoOut
+  );
+
+  console.log(images);
+
   return loading ? (
     <Loader />
   ) : (
@@ -140,19 +154,21 @@ const Upload = () => {
       <Header isLogin={isLogin} nickname={nickname} profileImg={profileImg} />
       <Container>
         <Title>업로드</Title>
-        <ButtonWrap>
-          <Button>취소</Button>
-          <Button color="#77c4a3">게시</Button>
-        </ButtonWrap>
-        <ContentWrap>
-          <ItemWrap>
-            {images.map((item, index) => (
-              <UploadedItem key={index} image={URL.createObjectURL(item)} />
-            ))}
-            <UploadInput images={images} setImages={setImages} />
-          </ItemWrap>
-          <Textarea placeholder="여기에 내용(설명)을 입력하세요" />
-        </ContentWrap>
+        <Form>
+          <ButtonWrap>
+            <Button onClick={confirmCancel}>취소</Button>
+            <Button color="#77c4a3">게시</Button>
+          </ButtonWrap>
+          <ContentWrap>
+            <ItemWrap>
+              {images.map((item, index) => (
+                <UploadedItem key={index} image={URL.createObjectURL(item)} />
+              ))}
+              <UploadInput images={images} setImages={setImages} />
+            </ItemWrap>
+            <Textarea placeholder="여기에 내용(설명)을 입력하세요" />
+          </ContentWrap>
+        </Form>
       </Container>
     </>
   );
