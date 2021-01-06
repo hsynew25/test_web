@@ -162,7 +162,11 @@ const CommentWrap = styled.div`
   }
 `;
 
-const ContentDetail = () => {
+const ContentDetail = ({
+  location: {
+    state: { item },
+  },
+}) => {
   const { access_token } = useGetToken();
   const { isLogin } = useLogin(access_token);
   const {
@@ -178,18 +182,18 @@ const ContentDetail = () => {
             <Img src={basicProfile} />
           </ImgWrap>
           <WriterWrap>
-            <Nickname>나는 누구</Nickname>
+            <Nickname>{item.user.username}</Nickname>
             <Occupation>Developer</Occupation>
           </WriterWrap>
         </Headers>
         <SliderWrap>
-          <Sliders />
+          <Sliders images={item.images} />
         </SliderWrap>
         <ButtonWrap>
           <Button clicked={true} />
           <Comment />
         </ButtonWrap>
-        <Introduction>여기에 유저가 작성한 글이 들어갑니다. </Introduction>
+        <Introduction>{item.description}</Introduction>
         <CountWrap>
           <CounteTitle>
             좋아요 <span>1334</span>개

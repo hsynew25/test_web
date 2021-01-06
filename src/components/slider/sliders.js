@@ -43,7 +43,7 @@ function SamplePrevArrow(props) {
   );
 }
 
-const Sliders = () => {
+const Sliders = ({ images }) => {
   const settings = {
     dots: true,
     infinite: false,
@@ -55,8 +55,9 @@ const Sliders = () => {
   };
   return (
     <Slider {...settings}>
-      <SlideItem img={sampleDesk} />
-      <SlideItem img={sampleDesk2} />
+      {images.map((image, idx) => (
+        <SlideItem key={idx} img={image} />
+      ))}
     </Slider>
   );
 };
