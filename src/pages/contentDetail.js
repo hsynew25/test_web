@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import basicProfile from "../img/basic_profile.png";
 import emptyHeart from "../img/empty_heart.png";
@@ -93,7 +93,7 @@ const ButtonWrap = styled.div`
 `;
 
 const Button = styled.button`
-  background: url(${(props) => (props.clicked ? emptyHeart : fillHeart)})
+  background: url(${(props) => (props.clicked ? fillHeart : emptyHeart)})
     no-repeat 0 0/40px 40px;
   width: 40px;
   height: 40px;
@@ -172,6 +172,7 @@ const ContentDetail = ({
   const {
     myProfile: { nickname, profileImg },
   } = useGetMyProfile(access_token);
+  const [isLike, setIsLike] = useState(false);
 
   return (
     <>
@@ -190,7 +191,7 @@ const ContentDetail = ({
           <Sliders images={item.images} />
         </SliderWrap>
         <ButtonWrap>
-          <Button clicked={true} />
+          <Button clicked={isLike} onClick={() => setIsLike(!isLike)} />
           <Comment />
         </ButtonWrap>
         <Introduction>{item.description}</Introduction>
