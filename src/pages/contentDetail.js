@@ -9,6 +9,9 @@ import CommentList from "../components/comment/commentList";
 import CommentItem from "../components/comment/commentItem";
 import WritingComment from "../components/comment/writingComment";
 import Header from "../components/header";
+import { useGetToken } from "../hooks/useGetToken";
+import { useLogin } from "../hooks/useLogin";
+import { useGetMyProfile } from "../hooks/useGetMyProfile";
 
 const Container = styled.div`
   @media screen and (min-width: 768px) {
@@ -160,9 +163,15 @@ const CommentWrap = styled.div`
 `;
 
 const ContentDetail = () => {
+  const { access_token } = useGetToken();
+  const { isLogin } = useLogin(access_token);
+  const {
+    myProfile: { nickname, profileImg },
+  } = useGetMyProfile(access_token);
+
   return (
     <>
-      <Header />
+      <Header isLogin={isLogin} nickname={nickname} profileImg={profileImg} />
       <Container>
         <Headers>
           <ImgWrap>
