@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import basicProfile from "../../img/Icon/profile user.png";
 import emptyHeart from "../../img/Icon/empty heart.png";
+import fillHeart from "../../img/Icon/fill heart.png";
 
 const Container = styled.li`
   padding: 10px 0;
@@ -44,7 +45,8 @@ const CommentContent = styled.span`
 `;
 
 const LikesButton = styled.button`
-  background: url(${emptyHeart}) no-repeat 13px 13px/14px 14px;
+  background: url(${(props) => (props.clicked ? fillHeart : emptyHeart)})
+    no-repeat 13px 13px/14px 14px;
   width: 40px;
   height: 40px;
 `;
@@ -69,6 +71,7 @@ const ReplyButton = styled.button`
 `;
 
 const CommentItem = () => {
+  const [isLike, setIsLike] = useState(false);
   return (
     <Container>
       <ImgWrap>
@@ -87,7 +90,7 @@ const CommentItem = () => {
           <ReplyButton>답글달기</ReplyButton>
         </Footer>
       </ContentWrap>
-      <LikesButton />
+      <LikesButton clicked={isLike} onClick={() => setIsLike(!isLike)} />
     </Container>
   );
 };

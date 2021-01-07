@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import sampleDesk from "../img/sample_desk.jpeg";
 import basicProfile from "../img/Icon/profile user.png";
 import emptyHeart from "../img/Icon/empty heart.png";
-import fillHeart from "../img/fill_heart.png";
+import fillHeart from "../img/Icon/fill heart.png";
 import commentIcon from "../img/Icon/chat speak.png";
 
 const Container = styled.div`
@@ -87,7 +87,7 @@ const Introduction = styled.p`
 const ButtonWrap = styled.div``;
 
 const Button = styled.button`
-  background: url(${(props) => (props.clicked ? emptyHeart : fillHeart)})
+  background: url(${(props) => (props.clicked ? fillHeart : emptyHeart)})
     no-repeat 0 0/26px 26px;
   width: 26px;
   height: 26px;
@@ -104,6 +104,7 @@ const Comment = styled.span`
 `;
 
 const Card = () => {
+  const [isLike, setIsLike] = useState(false);
   return (
     <Container>
       <ImgWrap>
@@ -121,7 +122,7 @@ const Card = () => {
         </Header>
         <Introduction>여기에 유저가 작성한 글이 들어갑니다.</Introduction>
         <ButtonWrap>
-          <Button clicked={true} />
+          <Button clicked={isLike} onClick={() => setIsLike(!isLike)} />
           <Comment />
         </ButtonWrap>
       </CardInfo>
