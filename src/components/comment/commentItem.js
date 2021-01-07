@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import basicProfile from "../../img/basic_profile.png";
-import emptyHeart from "../../img/empty_heart.png";
+import basicProfile from "../../img/Icon/profile user.png";
+import emptyHeart from "../../img/Icon/empty heart.png";
 
 const Container = styled.li`
   padding: 10px 0;
@@ -14,6 +14,8 @@ const ImgWrap = styled.div`
   display: inline-block;
   vertical-align: middle;
   margin: 0 10px;
+  background: url(${basicProfile}) #d2d2d2 no-repeat 3px 3px/24px 24px;
+  border-radius: 50%;
 `;
 
 const Img = styled.img`
@@ -42,7 +44,7 @@ const CommentContent = styled.span`
 `;
 
 const LikesButton = styled.button`
-  background: url(${emptyHeart}) no-repeat 9px 8px/20px 20px;
+  background: url(${emptyHeart}) no-repeat 13px 13px/14px 14px;
   width: 40px;
   height: 40px;
 `;
@@ -70,7 +72,7 @@ const CommentItem = () => {
   return (
     <Container>
       <ImgWrap>
-        <Img src={basicProfile} />
+        <Img src={null} />
       </ImgWrap>
       <ContentWrap>
         <Nickname>hongsungyeun</Nickname>

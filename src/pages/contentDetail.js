@@ -1,9 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import basicProfile from "../img/basic_profile.png";
-import emptyHeart from "../img/empty_heart.png";
-import fillHeart from "../img/fill_heart.png";
-import commentImg from "../img/comment.png";
 import Sliders from "../components/slider/sliders";
 import CommentList from "../components/comment/commentList";
 import CommentItem from "../components/comment/commentItem";
@@ -12,6 +8,12 @@ import Header from "../components/header";
 import { useGetToken } from "../hooks/useGetToken";
 import { useLogin } from "../hooks/useLogin";
 import { useGetMyProfile } from "../hooks/useGetMyProfile";
+
+import fillHeart from "../img/fill_heart.png";
+
+import emptyHeart from "../img/Icon/empty heart.png";
+import commentIcon from "../img/Icon/chat speak.png";
+import basicProfile from "../img/Icon/profile user.png";
 
 const Container = styled.div`
   @media screen and (min-width: 768px) {
@@ -55,6 +57,7 @@ const ImgWrap = styled.div`
   height: 40px;
   border-radius: 50%;
   overflow: hidden;
+  background: url(${basicProfile}) #d2d2d2 no-repeat 5px 5px/30px 30px;
 `;
 
 const Img = styled.img`
@@ -94,7 +97,7 @@ const ButtonWrap = styled.div`
 
 const Button = styled.button`
   background: url(${(props) => (props.clicked ? fillHeart : emptyHeart)})
-    no-repeat 0 0/40px 40px;
+    no-repeat 5px 5px/30px 30px;
   width: 40px;
   height: 40px;
   vertical-align: top;
@@ -102,7 +105,7 @@ const Button = styled.button`
 
 const Comment = styled.span`
   display: inline-block;
-  background: url(${commentImg}) no-repeat 9px 9px/22px 22px;
+  background: url(${commentIcon}) no-repeat 5px 5px/30px 30px;
   width: 40px;
   height: 40px;
   vertical-align: top;
@@ -180,7 +183,7 @@ const ContentDetail = ({
       <Container>
         <Headers>
           <ImgWrap>
-            <Img src={basicProfile} />
+            <Img />
           </ImgWrap>
           <WriterWrap>
             <Nickname>{item.user.username}</Nickname>

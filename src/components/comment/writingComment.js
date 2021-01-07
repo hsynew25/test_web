@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import basicProfile from "../../img/basic_profile.png";
+import basicProfile from "../../img/Icon/profile user.png";
 
 const Container = styled.div`
   display: flex;
@@ -15,6 +15,8 @@ const ImgWrap = styled.div`
   display: inline-block;
   vertical-align: middle;
   margin-right: 10px;
+  background: url(${basicProfile}) #d2d2d2 no-repeat 3px 3px/24px 24px;
+  border-radius: 50%;
 `;
 
 const Img = styled.img`
@@ -50,7 +52,7 @@ const WritingComment = () => {
     <Form>
       <Container>
         <ImgWrap>
-          <Img src={basicProfile} />
+          <Img src={null} />
         </ImgWrap>
         <ContentWrap>
           <Textarea />
