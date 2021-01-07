@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import basicProfile from "../img/basic_profile.png";
+import basicProfile from "../img/Icon/profile user.png";
 
 const Container = styled.div`
   padding: 20px 15px;
@@ -24,6 +24,7 @@ const ImgWrap = styled.div`
   display: inline-block;
   vertical-align: middle;
   overflow: hidden;
+  background: url(${basicProfile}) #d2d2d2 no-repeat 12px 12px/56px 56px;
 
   @media screen and (min-width: 1024px) {
     position: absolute;
@@ -31,6 +32,7 @@ const ImgWrap = styled.div`
     left: 15px;
     width: 120px;
     height: 120px;
+    background: url(${basicProfile}) #d2d2d2 no-repeat 18px 18px/84px 84px;
   }
 `;
 
@@ -110,7 +112,7 @@ const ProfileCard = ({ myProfile }) => {
   return (
     <Container>
       <ImgWrap>
-        <Img src={profileImg === "" ? basicProfile : profileImg} />
+        <Img src={profileImg === "" ? null : profileImg} />
       </ImgWrap>
       <InfoWrap>
         <Nickname>{nickname}</Nickname>
