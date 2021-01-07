@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import basicProfile from "../../img/basic_profile.png";
+import basicProfile from "../../img/Icon/profile user.png";
 import { Dropdown } from "react-bootstrap";
 import "./dropdown.css";
 import { useCookies } from "react-cookie";
@@ -26,10 +26,13 @@ const ImgWrap = styled.div`
   width: 30px;
   height: 30px;
   vertical-align: middle;
+  background: url(${basicProfile}) #d2d2d2 no-repeat 3px 3px/24px 24px;
+  border-radius: 50%;
 
   @media screen and (min-width: 768px) {
     width: 40px;
     height: 40px;
+    background: url(${basicProfile}) #d2d2d2 no-repeat 5px 5px/30px 30px;
   }
 `;
 
@@ -77,7 +80,7 @@ const ProfileAfterLogin = ({ nickname, profileImg }) => {
         <Dropdown.Toggle id="dropdown">
           <Nickname>{nickname}</Nickname>
           <ImgWrap>
-            <Img src={profileImg === "" ? basicProfile : profileImg} />
+            <Img src={profileImg === "" ? null : profileImg} />
           </ImgWrap>
         </Dropdown.Toggle>
         <Dropdown.Menu className="menu">

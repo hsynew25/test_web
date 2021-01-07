@@ -183,7 +183,7 @@ const ContentDetail = ({
       <Container>
         <Headers>
           <ImgWrap>
-            <Img />
+            <Img src={null} />
           </ImgWrap>
           <WriterWrap>
             <Nickname>{item.user.username}</Nickname>
