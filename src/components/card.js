@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import sampleDesk from "../img/sample_desk.jpeg";
-import basicProfile from "../img/basic_profile.png";
-import emptyHeart from "../img/empty_heart.png";
+import basicProfile from "../img/Icon/profile user.png";
+import emptyHeart from "../img/Icon/empty heart.png";
 import fillHeart from "../img/fill_heart.png";
-import commentImg from "../img/comment.png";
+import commentIcon from "../img/Icon/chat speak.png";
 
 const Container = styled.div`
   background-color: #ffffff;
@@ -49,9 +49,16 @@ const Header = styled.div`
   display: flex;
 `;
 
-const ProfileImg = styled.img`
+const ProfileImgWrap = styled.div`
   width: 36px;
   height: 36px;
+  border-radius: 50%;
+  background: url(${basicProfile}) #d2d2d2 no-repeat 5px 5px/26px 26px;
+`;
+
+const ProfileImg = styled.img`
+  width: 100%;
+  vertical-align: top;
 `;
 
 const ProfileWrap = styled.div`
@@ -81,15 +88,16 @@ const ButtonWrap = styled.div``;
 
 const Button = styled.button`
   background: url(${(props) => (props.clicked ? emptyHeart : fillHeart)})
-    no-repeat -2px -2px/30px 30px;
+    no-repeat 0 0/26px 26px;
   width: 26px;
   height: 26px;
   vertical-align: top;
 `;
 
 const Comment = styled.span`
+  margin-left: 5px;
   display: inline-block;
-  background: url(${commentImg}) no-repeat 4px 5px/17px 17px;
+  background: url(${commentIcon}) no-repeat 0 0/26px 26px;
   width: 26px;
   height: 26px;
   vertical-align: top;
@@ -103,7 +111,9 @@ const Card = () => {
       </ImgWrap>
       <CardInfo>
         <Header>
-          <ProfileImg src={basicProfile} />
+          <ProfileImgWrap>
+            <ProfileImg src={null} />
+          </ProfileImgWrap>
           <ProfileWrap>
             <Nickname>닉네임</Nickname>
             <Occupation>developer</Occupation>
