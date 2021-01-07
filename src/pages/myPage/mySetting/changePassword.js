@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { userApi } from "../../../api";
 
 const Container = styled.div`
   padding: 40px 30px;
@@ -58,7 +59,7 @@ const CheckMsg = styled.div`
   margin-top: 5px;
 `;
 
-const ChangePassword = () => {
+const ChangePassword = ({ accessToken }) => {
   const [curPassword, setCurPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [checkPassword, setCheckPassword] = useState("");
@@ -71,10 +72,38 @@ const ChangePassword = () => {
     }
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (curPassword === "" || newPassword === "" || checkPassword === "")
+      return;
+    if (newPassword !== checkPassword) {
+      alert("새 비밀번호가 일치하지 않습니다.");
+      return;
+    }
+    try {
+      const response = await userApi.changePassword(
+        accessToken,
+        curPassword,
+        newPassword
+      );
+      if (response.status === 200) {
+        alert("비밀번호가 변경되었습니다.🥳");
+        window.location.reload();
+      }
+    } catch (error) {
+      console.log(error.response);
+      if (error.response.status === 401) {
+        alert("기존 비밀번호가 일치하지 않습니다.");
+      } else if (error.response.status === 400) {
+        alert("새 비밀번호를 입력하세요.");
+      }
+    }
+  };
+
   return (
     <Container>
       <Title>비밀번호 변경</Title>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <InputWrap>
           <Label htmlFor="user_currentPassword">기존 비밀번호 *</Label>
           <Input
@@ -113,7 +142,7 @@ const ChangePassword = () => {
           />
           {PasswordCheckMsg()}
         </InputWrap>
-        <SubmitButton>비밀번호 변경</SubmitButton>
+        <SubmitButton onClick={handleSubmit}>비밀번호 변경</SubmitButton>
       </Form>
     </Container>
   );

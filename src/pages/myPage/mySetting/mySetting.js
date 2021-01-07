@@ -26,7 +26,7 @@ const MySetting = ({ myProfile, accessToken }) => {
     settingProfile: (
       <SettingProfile myProfile={myProfile} accessToken={accessToken} />
     ),
-    changePassword: <ChangePassword />,
+    changePassword: <ChangePassword accessToken={accessToken} />,
   };
 
   const handleClick = (tabId) => {
