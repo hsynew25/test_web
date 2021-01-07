@@ -172,7 +172,6 @@ const Upload = ({ history }) => {
       }
     } catch (error) {
       console.log(error, error.response);
-    } finally {
       setIsLoading(false);
     }
   };

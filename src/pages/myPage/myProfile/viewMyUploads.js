@@ -21,6 +21,7 @@ const ViewMyUploads = ({ accessToken }) => {
   if (error) {
     console.log(error);
   }
+
   return loading ? (
     <Loader />
   ) : (
