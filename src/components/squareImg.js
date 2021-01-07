@@ -33,7 +33,7 @@ const Img = styled.img`
 `;
 
 const SquareImg = ({ item }) => {
-  return (
+  return item === undefined ? null : (
     <SLink
       to={{
         pathname: `contents/${item.id}`,
