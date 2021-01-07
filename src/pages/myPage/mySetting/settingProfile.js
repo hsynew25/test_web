@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import plusIcon from "../../../img/plus.png";
-import basicProfile from "../../../img/basic_profile.png";
+import basicProfile from "../../../img/Icon/profile user.png";
 import SelectDomain from "../../../components/emailDomain/selectDomain";
 import DirectDomain from "../../../components/emailDomain/directDomain";
 import InputSns from "../../../components/inputSns";
@@ -35,6 +35,7 @@ const ImgWrap = styled.div`
   border-radius: 50%;
   margin: 0 auto;
   overflow: hidden;
+  background: url(${basicProfile}) #d2d2d2 no-repeat 18px 18px/64px 64px;
 `;
 
 const Img = styled.img`
@@ -230,11 +231,7 @@ const SettingProfile = ({ myProfile, accessToken }) => {
         <SetImgWrap>
           <ImgOuterWrap>
             <ImgWrap>
-              <Img
-                src={
-                  userImg === "" ? basicProfile : URL.createObjectURL(userImg)
-                }
-              />
+              <Img src={userImg === "" ? null : URL.createObjectURL(userImg)} />
             </ImgWrap>
             <RemoveImgButton onClick={() => setUserImg("")}>❌</RemoveImgButton>
           </ImgOuterWrap>
