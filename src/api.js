@@ -37,6 +37,20 @@ export const userApi = {
         "Content-Type": "multipart/form-data",
       },
     }),
+  changePassword: (accessToken, password, newPassword) =>
+    api.put(
+      "user/password",
+      { password, newPassword },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    ),
+  duplicationCheck: (username, nickname, email) =>
+    api.get(
+      `auth/duplcheck?username=${username}&nickname=${nickname}&email=${email}`
+    ),
 };
 
 export const contentApi = {
