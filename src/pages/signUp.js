@@ -132,6 +132,25 @@ const SignUp = ({ history }) => {
     const fullEmail = `${emailId}@${emailDomain}`;
 
     try {
+      const response = await userApi.duplicationCheck(
+        userId,
+        userNickname,
+        fullEmail
+      );
+      console.log(response);
+    } catch (error) {
+      console.log("dupleError: ", error.response);
+      if (error.response.data.errorCode === 1001) {
+        alert("이미 등록된 아이디입니다. 아이디를 변경해주세요🧐");
+      } else if (error.response.data.errorCode === 1002) {
+        alert("이미 등록된 닉네임입니다. 닉네임을 변경해주세요🧐");
+      } else if (error.response.data.errorCode === 1003) {
+        alert("이미 등록된 이메일입니다. 이메일을 변경해주세요🧐");
+      }
+      return;
+    }
+
+    try {
       const response = await userApi.signUp(
         userId,
         fullEmail,
@@ -148,9 +167,6 @@ const SignUp = ({ history }) => {
       }
     } catch (error) {
       console.log(error);
-      if (error.response.status === 403) {
-        alert("🚨중복중복🚨");
-      }
     }
   };
 
