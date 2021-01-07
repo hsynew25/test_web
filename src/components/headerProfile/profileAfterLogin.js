@@ -81,21 +81,15 @@ const ProfileAfterLogin = ({ nickname, profileImg }) => {
           </ImgWrap>
         </Dropdown.Toggle>
         <Dropdown.Menu className="menu">
-          <Dropdown.Item>
-            <Item>
-              <SLink to="/mypage">마이페이지</SLink>
-            </Item>
-          </Dropdown.Item>
-          <Dropdown.Item>
-            <Item>
-              <SLink to="/upload">업로드</SLink>
-            </Item>
-          </Dropdown.Item>
-          <Dropdown.Item>
-            <Item>
-              <LogoutButton onClick={handleLogout}>로그아웃</LogoutButton>
-            </Item>
-          </Dropdown.Item>
+          <Item>
+            <SLink to="/mypage">마이페이지</SLink>
+          </Item>
+          <Item>
+            <SLink to="/upload">업로드</SLink>
+          </Item>
+          <Item>
+            <LogoutButton onClick={handleLogout}>로그아웃</LogoutButton>
+          </Item>
         </Dropdown.Menu>
       </Dropdown>
     </Container>
