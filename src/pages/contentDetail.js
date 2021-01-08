@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Sliders from "../components/slider/sliders";
 import CommentList from "../components/comment/commentList";
@@ -13,10 +13,12 @@ import fillHeart from "../img/Icon/fill heart.png";
 import emptyHeart from "../img/Icon/empty heart.png";
 import commentIcon from "../img/Icon/chat speak.png";
 import basicProfile from "../img/Icon/profile user.png";
+import moreIcon from "../img/Icon/dot more.png";
+import { useDetectOutsideClick } from "../hooks/useDetectOutsideClick";
 
 const Container = styled.div`
+  position: relative;
   @media screen and (min-width: 768px) {
-    position: relative;
     max-width: 1000px;
     margin: 0 auto;
   }
@@ -40,6 +42,21 @@ const Headers = styled.div`
   @media screen and (min-width: 1024px) {
     padding: 15px;
     width: 40%;
+  }
+`;
+
+const MoreButton = styled.button`
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50px;
+  height: 60px;
+  background: url(${moreIcon}) no-repeat 14px 19px/22px 22px;
+
+  @media screen and (min-width: 1024px) {
+    width: 60px;
+    height: 70px;
+    background: url(${moreIcon}) no-repeat 19px 24px/22px 22px;
   }
 `;
 
@@ -85,6 +102,20 @@ const Occupation = styled.div`
   color: #757575;
 `;
 
+const BottomWrap = styled.div`
+  @media screen and (min-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 50%;
+  }
+  @media screen and (min-width: 1024px) {
+    width: 40%;
+  }
+`;
+
 const ButtonWrap = styled.div`
   @media screen and (min-width: 768px) {
     order: 2;
@@ -111,7 +142,7 @@ const Comment = styled.span`
   vertical-align: top;
 `;
 
-const Introduction = styled.p`
+const Description = styled.p`
   padding: 10px;
   word-break: break-word;
   font-size: 15px;
@@ -156,18 +187,28 @@ const CommentWrap = styled.div`
   }
 `;
 
-const BottomWrap = styled.div`
-  @media screen and (min-width: 768px) {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 60px;
-    right: 0;
-    width: 50%;
+const Dropdown = styled.ul`
+  z-index: 100;
+  box-shadow: 0 0 5px #d2d2d2;
+  position: absolute;
+  top: 60px;
+  right: 0;
+  width: 100px;
+  background-color: #fff;
+  display: ${(props) => (props.open ? "block" : "none")};
+`;
+
+const MenuItem = styled.li`
+  width: 100%;
+  &:not(:first-child) {
+    border-top: 1px solid #d2d2d2;
   }
-  @media screen and (min-width: 1024px) {
-    width: 40%;
-  }
+`;
+
+const ItemButton = styled.button`
+  width: 100%;
+  padding: 10px;
+  background-color: transparent;
 `;
 
 const ContentDetail = ({
@@ -180,7 +221,13 @@ const ContentDetail = ({
   const {
     myProfile: { nickname, profileImg },
   } = useGetMyProfile(access_token);
+  const dropdownRef = useRef();
   const [isLike, setIsLike] = useState(false);
+  const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
+
+  const showMenu = () => {
+    setIsActive(!isActive);
+  };
 
   return (
     <>
@@ -195,6 +242,15 @@ const ContentDetail = ({
             <Occupation>Developer</Occupation>
           </WriterWrap>
         </Headers>
+        <MoreButton onClick={showMenu} />
+        <Dropdown ref={dropdownRef} open={isActive}>
+          <MenuItem>
+            <ItemButton>수정</ItemButton>
+          </MenuItem>
+          <MenuItem>
+            <ItemButton>삭제</ItemButton>
+          </MenuItem>
+        </Dropdown>
         <SliderWrap>
           <Sliders images={item.images} />
         </SliderWrap>
@@ -203,7 +259,7 @@ const ContentDetail = ({
             <Button clicked={isLike} onClick={() => setIsLike(!isLike)} />
             <Comment />
           </ButtonWrap>
-          <Introduction>{item.description}</Introduction>
+          <Description>{item.description}</Description>
           <CountWrap>
             <CounteTitle>
               좋아요 <span>1334</span>개
