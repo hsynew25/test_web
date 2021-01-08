@@ -19,6 +19,7 @@ import { useConfirm } from "../hooks/useConfirm";
 import Loader from "../components/loader";
 import { contentApi } from "../api";
 import { useAxios } from "../hooks/useAxios";
+import NotFound from "./404";
 
 const Container = styled.div`
   position: relative;
@@ -233,10 +234,6 @@ const ContentDetail = ({ location: { state }, history }) => {
     ...Object.values(state)
   );
 
-  if (error) {
-    console.log(error);
-  }
-
   const showMenu = () => {
     setIsActive(!isActive);
   };
@@ -263,6 +260,8 @@ const ContentDetail = ({ location: { state }, history }) => {
 
   return loading ? (
     <Loader />
+  ) : error ? (
+    <NotFound error={error} />
   ) : (
     <>
       <Header isLogin={isLogin} nickname={nickname} profileImg={profileImg} />
