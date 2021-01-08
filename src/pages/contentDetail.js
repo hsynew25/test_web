@@ -17,7 +17,7 @@ import basicProfile from "../img/Icon/profile user.png";
 const Container = styled.div`
   @media screen and (min-width: 768px) {
     position: relative;
-    max-width: 900px;
+    max-width: 1000px;
     margin: 0 auto;
   }
 
@@ -39,6 +39,7 @@ const Headers = styled.div`
   }
   @media screen and (min-width: 1024px) {
     padding: 15px;
+    width: 40%;
   }
 `;
 
@@ -48,6 +49,9 @@ const SliderWrap = styled.div`
     position: absolute;
     top: 0;
     left: 0;
+  }
+  @media screen and (min-width: 1024px) {
+    width: 60%;
   }
 `;
 
@@ -83,10 +87,7 @@ const Occupation = styled.div`
 
 const ButtonWrap = styled.div`
   @media screen and (min-width: 768px) {
-    position: absolute;
-    top: 160px;
-    right: 0;
-    width: 50%;
+    order: 2;
   }
 
   @media screen and (min-width: 1024px) {
@@ -113,14 +114,10 @@ const Comment = styled.span`
 const Introduction = styled.p`
   padding: 10px;
   word-break: break-word;
-  min-height: 100px;
   font-size: 15px;
 
   @media screen and (min-width: 768px) {
-    width: 50%;
-    position: absolute;
-    top: 60px;
-    right: 0;
+    order: 1;
   }
 
   @media screen and (min-width: 1024px) {
@@ -133,11 +130,9 @@ const CountWrap = styled.div`
   padding: 10px;
 
   @media screen and (min-width: 768px) {
-    width: 50%;
-    position: absolute;
-    top: 200px;
-    right: 0;
+    order: 3;
   }
+
   @media screen and (min-width: 1024px) {
     padding: 15px;
   }
@@ -157,10 +152,21 @@ const CounteTitle = styled.div`
 
 const CommentWrap = styled.div`
   @media screen and (min-width: 768px) {
+    order: 4;
+  }
+`;
+
+const BottomWrap = styled.div`
+  @media screen and (min-width: 768px) {
+    display: flex;
+    flex-direction: column;
     position: absolute;
-    top: 235px;
+    top: 60px;
     right: 0;
     width: 50%;
+  }
+  @media screen and (min-width: 1024px) {
+    width: 40%;
   }
 `;
 
@@ -192,28 +198,30 @@ const ContentDetail = ({
         <SliderWrap>
           <Sliders images={item.images} />
         </SliderWrap>
-        <ButtonWrap>
-          <Button clicked={isLike} onClick={() => setIsLike(!isLike)} />
-          <Comment />
-        </ButtonWrap>
-        <Introduction>{item.description}</Introduction>
-        <CountWrap>
-          <CounteTitle>
-            좋아요 <span>1334</span>개
-          </CounteTitle>
-          <CounteTitle>
-            댓글 <span>678</span>개
-          </CounteTitle>
-          <CounteTitle>
-            조회수 <span>9301</span>회
-          </CounteTitle>
-        </CountWrap>
-        <CommentWrap>
-          <WritingComment />
-          <CommentList>
-            <CommentItem />
-          </CommentList>
-        </CommentWrap>
+        <BottomWrap>
+          <ButtonWrap>
+            <Button clicked={isLike} onClick={() => setIsLike(!isLike)} />
+            <Comment />
+          </ButtonWrap>
+          <Introduction>{item.description}</Introduction>
+          <CountWrap>
+            <CounteTitle>
+              좋아요 <span>1334</span>개
+            </CounteTitle>
+            <CounteTitle>
+              댓글 <span>678</span>개
+            </CounteTitle>
+            <CounteTitle>
+              조회수 <span>9301</span>회
+            </CounteTitle>
+          </CountWrap>
+          <CommentWrap>
+            <WritingComment />
+            <CommentList>
+              <CommentItem />
+            </CommentList>
+          </CommentWrap>
+        </BottomWrap>
       </Container>
     </>
   );

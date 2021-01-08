@@ -41,3 +41,7 @@
   border-radius: 50%;
   font-family: "Spoqa Han Sans Neo";
 }
+
+.slick-dots {
+  bottom: 0;
+}
