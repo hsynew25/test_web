@@ -15,6 +15,10 @@ import commentIcon from "../img/Icon/chat speak.png";
 import basicProfile from "../img/Icon/profile user.png";
 import moreIcon from "../img/Icon/dot more.png";
 import { useDetectOutsideClick } from "../hooks/useDetectOutsideClick";
+import { useConfirm } from "../hooks/useConfirm";
+import Loader from "../components/loader";
+import { contentApi } from "../api";
+import { useAxios } from "../hooks/useAxios";
 
 const Container = styled.div`
   position: relative;
@@ -203,6 +207,9 @@ const MenuItem = styled.li`
   &:not(:first-child) {
     border-top: 1px solid #d2d2d2;
   }
+  &:hover {
+    background-color: #77c4a3;
+  }
 `;
 
 const ItemButton = styled.button`
@@ -211,11 +218,7 @@ const ItemButton = styled.button`
   background-color: transparent;
 `;
 
-const ContentDetail = ({
-  location: {
-    state: { item },
-  },
-}) => {
+const ContentDetail = ({ location: { state }, history }) => {
   const { access_token } = useGetToken();
   const { isLogin } = useLogin(access_token);
   const {
@@ -225,11 +228,42 @@ const ContentDetail = ({
   const [isLike, setIsLike] = useState(false);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
 
+  const { loading, data: item, error } = useAxios(
+    contentApi.getContent,
+    ...Object.values(state)
+  );
+
+  if (error) {
+    console.log(error);
+  }
+
   const showMenu = () => {
     setIsActive(!isActive);
   };
 
-  return (
+  const handleDeleteContent = async () => {
+    console.log("삭제");
+    try {
+      const response = await contentApi.deleteContent(access_token, item.id);
+
+      if (response.status === 200) {
+        alert("삭제되었습니다😇");
+        history.push("/mypage");
+      }
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
+  const confirmDeleteContent = useConfirm(
+    "이 게시글을 삭제하시겠습니까 ?",
+    handleDeleteContent,
+    () => console.log("취소")
+  );
+
+  return loading ? (
+    <Loader />
+  ) : (
     <>
       <Header isLogin={isLogin} nickname={nickname} profileImg={profileImg} />
       <Container>
@@ -248,7 +282,7 @@ const ContentDetail = ({
             <ItemButton>수정</ItemButton>
           </MenuItem>
           <MenuItem>
-            <ItemButton>삭제</ItemButton>
+            <ItemButton onClick={confirmDeleteContent}>삭제</ItemButton>
           </MenuItem>
         </Dropdown>
         <SliderWrap>

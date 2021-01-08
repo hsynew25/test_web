@@ -37,7 +37,7 @@ const SquareImg = ({ item }) => {
     <SLink
       to={{
         pathname: `contents/${item.id}`,
-        state: { item },
+        state: { itemId: item.id },
       }}
     >
       <ImgWrap>
