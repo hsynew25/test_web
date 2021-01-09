@@ -77,3 +77,30 @@ export const contentApi = {
     }),
   getRandom: (limit) => api.get(`content/random?limit=${limit}`),
 };
+
+export const replyApi = {
+  sendReply: (accessToken, contentId, description) =>
+    api.post(
+      `reply/content/${contentId}`,
+      { description },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    ),
+  getReplies: (contentId, page = 0, countPerPage = 10) =>
+    api.get(
+      `reply/content/${contentId}?page=${page}&countPerPage=${countPerPage}`
+    ),
+  sendReReply: (accessToken, replyId, description, toUsername = null) =>
+    api.post(
+      `reply/${replyId}/rereply`,
+      { description, toUsername },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    ),
+};
