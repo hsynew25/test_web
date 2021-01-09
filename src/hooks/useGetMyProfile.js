@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { userApi } from "../api";
 
-export function useGetMyProfile(accessToken) {
+export function useGetMyProfile(accessToken, isLogin) {
   const [myProfile, setMyProfile] = useState({});
   const getProfile = async () => {
     try {
@@ -16,7 +16,9 @@ export function useGetMyProfile(accessToken) {
   };
 
   useEffect(() => {
-    getProfile();
+    if (isLogin) {
+      getProfile();
+    }
   }, []);
 
   return { myProfile };
