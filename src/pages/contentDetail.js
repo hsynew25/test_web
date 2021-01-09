@@ -228,6 +228,7 @@ const ContentDetail = ({ location: { state }, history }) => {
   const dropdownRef = useRef();
   const [isLike, setIsLike] = useState(false);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
+  const [comments, setComments] = useState([]);
 
   const { loading, data: item, error } = useAxios(
     contentApi.getContent,
@@ -305,10 +306,18 @@ const ContentDetail = ({ location: { state }, history }) => {
             </CounteTitle>
           </CountWrap>
           <CommentWrap>
-            <WritingComment />
-            <CommentList>
-              <CommentItem />
-            </CommentList>
+            <WritingComment
+              contentId={item.id}
+              accessToken={access_token}
+              comments={comments}
+              setComments={setComments}
+            />
+            <CommentList
+              contentId={item.id}
+              comments={comments}
+              setComments={setComments}
+              accessToken={access_token}
+            />
           </CommentWrap>
         </BottomWrap>
       </Container>
