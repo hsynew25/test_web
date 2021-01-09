@@ -31,7 +31,7 @@ const Item = styled.li`
 const MyPage = () => {
   const { access_token } = useGetToken();
   const { isLogin } = useLogin(access_token);
-  const { myProfile } = useGetMyProfile(access_token);
+  const { myProfile } = useGetMyProfile(access_token, isLogin);
   const [activeTab, setActiveTab] = useState("profile");
   const obj = {
     profile: <MyProfile myProfile={myProfile} accessToken={access_token} />,

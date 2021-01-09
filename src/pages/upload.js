@@ -133,7 +133,7 @@ const Upload = ({ history }) => {
 
   const {
     myProfile: { nickname, profileImg },
-  } = useGetMyProfile(access_token);
+  } = useGetMyProfile(access_token, isLogin);
 
   const [images, setImages] = useState([]); // 이미지파일(file)을 담은 배열
   const [description, setDescription] = useState("");

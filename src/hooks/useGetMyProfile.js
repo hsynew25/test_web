@@ -19,7 +19,7 @@ export function useGetMyProfile(accessToken, isLogin) {
     if (isLogin) {
       getProfile();
     }
-  }, []);
+  }, [isLogin]);
 
   return { myProfile };
 }

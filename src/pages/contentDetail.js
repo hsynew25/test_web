@@ -224,7 +224,7 @@ const ContentDetail = ({ location: { state }, history }) => {
   const { isLogin } = useLogin(access_token);
   const {
     myProfile: { nickname, profileImg },
-  } = useGetMyProfile(access_token);
+  } = useGetMyProfile(access_token, isLogin);
   const dropdownRef = useRef();
   const [isLike, setIsLike] = useState(false);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
