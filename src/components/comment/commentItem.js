@@ -3,6 +3,12 @@ import styled from "styled-components";
 import basicProfile from "../../img/Icon/profile user.png";
 import emptyHeart from "../../img/Icon/empty heart.png";
 import fillHeart from "../../img/Icon/fill heart.png";
+import WritingComment from "./writingComment";
+import ReplyList from "./reply/replyList";
+import ReplyItem from "./reply/replyItem";
+import WritingReply from "./reply/writingReply";
+import handLike from "../../img/Icon/hand like.png";
+import handUnlike from "../../img/Icon/hand unlike.png";
 
 const Container = styled.li`
   padding: 10px 0;
@@ -29,6 +35,7 @@ const ContentWrap = styled.div`
   vertical-align: middle;
   width: 280px;
   flex-grow: 1;
+  padding-right: 10px;
 `;
 
 const Nickname = styled.span`
@@ -44,53 +51,80 @@ const CommentContent = styled.span`
   line-height: 18px;
 `;
 
-const LikesButton = styled.button`
-  background: url(${(props) => (props.clicked ? fillHeart : emptyHeart)})
-    no-repeat 13px 13px/14px 14px;
-  width: 40px;
-  height: 40px;
-`;
-
 const Footer = styled.div`
   color: #757575;
   font-size: 13px;
   margin-top: 5px;
 `;
 
-const DateBefore = styled.span``;
-
-const Likes = styled.span`
-  display: inline-block;
-  margin-left: 10px;
+const DateBefore = styled.span`
+  margin: 5px;
 `;
 
 const ReplyButton = styled.button`
   color: #757575;
   font-size: 13px;
-  margin-left: 10px;
+  margin: 0 5px;
 `;
 
-const CommentItem = () => {
-  const [isLike, setIsLike] = useState(false);
+const LikesButton = styled.button`
+  background: url(${handLike}) no-repeat 0 0/ 16px 16px;
+  width: 16px;
+  height: 16px;
+`;
+
+const UnlikeButton = styled.button`
+  background: url(${handUnlike}) no-repeat 0 0/ 16px 16px;
+  width: 16px;
+  height: 16px;
+`;
+
+const ButtonWrap = styled.div`
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 5px;
+
+  button,
+  span {
+    vertical-align: bottom;
+  }
+`;
+
+const CommentItem = ({ item, accessToken }) => {
+  const [showWriting, setShowWriting] = useState(false);
   return (
     <Container>
       <ImgWrap>
-        <Img src={null} />
+        <Img src={item.user.profileImg} />
       </ImgWrap>
       <ContentWrap>
-        <Nickname>hongsungyeun</Nickname>
-        <CommentContent>
-          와 방 개이쁘다 진짜 이건 너무이쁜데 어떻게 이렇게 꾸미지 대박이다 진짜
-        </CommentContent>
+        <Nickname>{item.user.nickname}</Nickname>
+        <CommentContent>{item.description}</CommentContent>
         <Footer>
+          <ButtonWrap>
+            <LikesButton />
+            <span>{item.replyExt.like}</span>
+          </ButtonWrap>
+          <ButtonWrap>
+            <UnlikeButton />
+            <span>{item.replyExt.dislike}</span>
+          </ButtonWrap>
           <DateBefore>1일전</DateBefore>
-          <Likes>
-            좋아요 <span>201</span>개
-          </Likes>
-          <ReplyButton>답글달기</ReplyButton>
+          <ReplyButton onClick={() => setShowWriting(!showWriting)}>
+            답글달기
+          </ReplyButton>
         </Footer>
+        {/* <ReplyList
+          showWriting={showWriting}
+          setShowWriting={setShowWriting}
+        ></ReplyList> */}
+        <WritingReply
+          show={showWriting}
+          accessToken={accessToken}
+          replyId={item.id}
+          toUser={item.user.username}
+        />
       </ContentWrap>
-      <LikesButton clicked={isLike} onClick={() => setIsLike(!isLike)} />
     </Container>
   );
 };

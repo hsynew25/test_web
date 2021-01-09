@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { replyApi } from "../../api";
 import basicProfile from "../../img/Icon/profile user.png";
 
 const Container = styled.div`
@@ -43,20 +44,48 @@ const Button = styled.button`
   top: 0;
   right: 0;
   width: 40px;
-  height: 52px;
+  height: 54px;
   color: #77c4a3;
 `;
 
-const WritingComment = () => {
+const WritingComment = ({ contentId, accessToken, comments, setComments }) => {
+  const [description, setDescription] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (description === "") {
+      return;
+    }
+    setDescription("");
+    try {
+      const response = await replyApi.sendReply(
+        accessToken,
+        contentId,
+        description
+      );
+
+      if (response.status === 200) {
+        if (response.data) {
+          const mergeData = comments.concat(response.data);
+          setComments(mergeData);
+        }
+      }
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <Container>
         <ImgWrap>
           <Img src={null} />
         </ImgWrap>
         <ContentWrap>
-          <Textarea />
-          <Button>게시</Button>
+          <Textarea
+            value={description}
+            onChange={(e) => setDescription(e.currentTarget.value)}
+          />
+          <Button onClick={handleSubmit}>게시</Button>
         </ContentWrap>
       </Container>
     </Form>
