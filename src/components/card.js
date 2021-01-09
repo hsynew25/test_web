@@ -6,6 +6,9 @@ import emptyHeart from "../img/Icon/empty heart.png";
 import fillHeart from "../img/Icon/fill heart.png";
 import commentIcon from "../img/Icon/chat speak.png";
 import noImage from "../img/no image.png";
+import { Link } from "react-router-dom";
+
+const SLink = styled(Link)``;
 
 const Container = styled.div`
   background-color: #ffffff;
@@ -108,25 +111,32 @@ const Card = ({ item }) => {
   const [isLike, setIsLike] = useState(false);
   return (
     <Container>
-      <ImgWrap>
-        <Img src={item.images ? item.images[0] : noImage} />
-      </ImgWrap>
-      <CardInfo>
-        <Header>
-          <ProfileImgWrap>
-            <ProfileImg src={null} />
-          </ProfileImgWrap>
-          <ProfileWrap>
-            <Nickname>{item.user.nickname}</Nickname>
-            <Occupation>developer</Occupation>
-          </ProfileWrap>
-        </Header>
-        <Introduction>{item.description}</Introduction>
-        <ButtonWrap>
-          <Button clicked={isLike} onClick={() => setIsLike(!isLike)} />
-          <Comment />
-        </ButtonWrap>
-      </CardInfo>
+      <SLink
+        to={{
+          pathname: `contents/${item.id}`,
+          state: { itemId: item.id },
+        }}
+      >
+        <ImgWrap>
+          <Img src={item.images ? item.images[0] : noImage} />
+        </ImgWrap>
+        <CardInfo>
+          <Header>
+            <ProfileImgWrap>
+              <ProfileImg src={null} />
+            </ProfileImgWrap>
+            <ProfileWrap>
+              <Nickname>{item.user.nickname}</Nickname>
+              <Occupation>developer</Occupation>
+            </ProfileWrap>
+          </Header>
+          <Introduction>{item.description}</Introduction>
+          <ButtonWrap>
+            <Button clicked={isLike} onClick={() => setIsLike(!isLike)} />
+            <Comment />
+          </ButtonWrap>
+        </CardInfo>
+      </SLink>
     </Container>
   );
 };
