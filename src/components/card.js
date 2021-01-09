@@ -5,6 +5,7 @@ import basicProfile from "../img/Icon/profile user.png";
 import emptyHeart from "../img/Icon/empty heart.png";
 import fillHeart from "../img/Icon/fill heart.png";
 import commentIcon from "../img/Icon/chat speak.png";
+import noImage from "../img/no image.png";
 
 const Container = styled.div`
   background-color: #ffffff;
@@ -103,12 +104,12 @@ const Comment = styled.span`
   vertical-align: top;
 `;
 
-const Card = () => {
+const Card = ({ item }) => {
   const [isLike, setIsLike] = useState(false);
   return (
     <Container>
       <ImgWrap>
-        <Img src={sampleDesk} />
+        <Img src={item.images ? item.images[0] : noImage} />
       </ImgWrap>
       <CardInfo>
         <Header>
@@ -116,11 +117,11 @@ const Card = () => {
             <ProfileImg src={null} />
           </ProfileImgWrap>
           <ProfileWrap>
-            <Nickname>닉네임</Nickname>
+            <Nickname>{item.user.nickname}</Nickname>
             <Occupation>developer</Occupation>
           </ProfileWrap>
         </Header>
-        <Introduction>여기에 유저가 작성한 글이 들어갑니다.</Introduction>
+        <Introduction>{item.description}</Introduction>
         <ButtonWrap>
           <Button clicked={isLike} onClick={() => setIsLike(!isLike)} />
           <Comment />

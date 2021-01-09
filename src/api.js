@@ -75,4 +75,5 @@ export const contentApi = {
         Authorization: `Bearer ${accessToken}`,
       },
     }),
+  getRandom: (limit) => api.get(`content/random?limit=${limit}`),
 };

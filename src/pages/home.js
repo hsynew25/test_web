@@ -6,6 +6,8 @@ import Loader from "../components/loader";
 import { useGetMyProfile } from "../hooks/useGetMyProfile";
 import { useGetToken } from "../hooks/useGetToken";
 import { useLogin } from "../hooks/useLogin";
+import { useAxios } from "../hooks/useAxios";
+import { contentApi } from "../api";
 
 const Container = styled.div`
   padding: 20px 15px;
@@ -26,11 +28,17 @@ const Container = styled.div`
 
 const Home = () => {
   const { access_token } = useGetToken();
-  const { isLogin, loading } = useLogin(access_token);
+  const { isLogin } = useLogin(access_token);
 
   const {
     myProfile: { nickname, profileImg },
-  } = useGetMyProfile(access_token);
+  } = useGetMyProfile(access_token, isLogin);
+
+  const { loading, error, data } = useAxios(contentApi.getRandom, 8);
+
+  if (error) {
+    console.log(error.response);
+  }
 
   return loading ? (
     <Loader />
@@ -38,11 +46,14 @@ const Home = () => {
     <>
       <Header isLogin={isLogin} nickname={nickname} profileImg={profileImg} />
       <Container>
+        {data.map((item) => (
+          <Card key={item.id} item={item} />
+        ))}
+        {/* <Card />
         <Card />
         <Card />
         <Card />
-        <Card />
-        <Card />
+        <Card /> */}
       </Container>
     </>
   );
