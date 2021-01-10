@@ -6,6 +6,7 @@ import {
   Redirect,
 } from "react-router-dom";
 import ContentDetail from "../pages/contentDetail";
+import ContentUpdate from "../pages/contentUpdate";
 import Home from "../pages/home";
 import Login from "../pages/login";
 import MyPage from "../pages/myPage/myPage";
@@ -18,11 +19,16 @@ export default () => {
     <Router>
       <Switch>
         <Route path="/" exact component={Home} />
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={SignUp} />
-        <Route path="/contents/:id" component={ContentDetail} />
-        <PrivateRoute path="/mypage" component={MyPage} />
-        <PrivateRoute path="/upload" component={Upload} />
+        <Route path="/login" exact component={Login} />
+        <Route path="/signup" exact component={SignUp} />
+        <Route path="/contents/:id" exact component={ContentDetail} />
+        <PrivateRoute path="/mypage" exact component={MyPage} />
+        <PrivateRoute path="/upload" exact component={Upload} />
+        <PrivateRoute
+          path="/contents/update/:id"
+          exact
+          component={ContentUpdate}
+        />
         <Redirect from="*" to="/" />
       </Switch>
     </Router>
