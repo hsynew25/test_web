@@ -20,6 +20,7 @@ import Loader from "../components/loader";
 import { contentApi } from "../api";
 import { useAxios } from "../hooks/useAxios";
 import NotFound from "./404";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   position: relative;
@@ -217,6 +218,18 @@ const ItemButton = styled.button`
   width: 100%;
   padding: 10px;
   background-color: transparent;
+  font-size: 14px;
+  line-height: 18px;
+`;
+
+const SLink = styled(Link)`
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: transparent;
+  font-size: 14px;
+  text-align: center;
+  line-height: 18px;
 `;
 
 const ContentDetail = ({ location: { state }, history }) => {
@@ -279,7 +292,14 @@ const ContentDetail = ({ location: { state }, history }) => {
         <MoreButton onClick={showMenu} />
         <Dropdown ref={dropdownRef} open={isActive}>
           <MenuItem>
-            <ItemButton>수정</ItemButton>
+            <SLink
+              to={{
+                pathname: `/contents/update/${state.itemId}`,
+                state: { item },
+              }}
+            >
+              수정
+            </SLink>
           </MenuItem>
           <MenuItem>
             <ItemButton onClick={confirmDeleteContent}>삭제</ItemButton>
