@@ -76,6 +76,16 @@ export const contentApi = {
       },
     }),
   getRandom: (limit) => api.get(`content/random?limit=${limit}`),
+  updateContent: (accessToken, id, description) =>
+    api.put(
+      `content/${id}`,
+      { description },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    ),
 };
 
 export const replyApi = {
