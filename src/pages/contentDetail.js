@@ -2,12 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Sliders from "../components/slider/sliders";
 import CommentList from "../components/comment/commentList";
-import CommentItem from "../components/comment/commentItem";
 import WritingComment from "../components/comment/writingComment";
 import Header from "../components/header";
 import { useGetToken } from "../hooks/useGetToken";
 import { useLogin } from "../hooks/useLogin";
 import { useGetMyProfile } from "../hooks/useGetMyProfile";
+import * as Scroll from "react-scroll";
 
 import fillHeart from "../img/Icon/fill heart.png";
 import emptyHeart from "../img/Icon/empty heart.png";
@@ -23,31 +23,31 @@ import NotFound from "./404";
 import { Link } from "react-router-dom";
 
 const Container = styled.div`
-  position: relative;
   @media screen and (min-width: 768px) {
-    max-width: 1000px;
-    margin: 0 auto;
+    padding: 0 40px;
   }
-
   @media screen and (min-width: 1024px) {
-    margin-top: 80px;
-    box-shadow: 0 0 20px #d2d2d2;
-    height: 600px;
+    position: relative;
+    padding: 0;
+    max-width: 944px;
+    margin: 50px auto;
   }
 `;
 
 const Headers = styled.div`
   display: flex;
   padding: 10px;
+  position: relative;
   @media screen and (min-width: 768px) {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 50%;
+    padding: 30px 0;
+    border-bottom: 1px solid #d0d0d0;
   }
   @media screen and (min-width: 1024px) {
-    padding: 15px;
-    width: 40%;
+    position: fixed;
+    width: 300px;
+    border-bottom: 0;
+    border-top: 1px solid #d0d0d0;
+    border-bottom: 1px solid #d0d0d0;
   }
 `;
 
@@ -59,22 +59,22 @@ const MoreButton = styled.button`
   height: 60px;
   background: url(${moreIcon}) no-repeat 14px 19px/22px 22px;
 
-  @media screen and (min-width: 1024px) {
-    width: 60px;
-    height: 70px;
-    background: url(${moreIcon}) no-repeat 19px 24px/22px 22px;
+  @media screen and (min-width: 768px) {
+    height: 110px;
+    background: url(${moreIcon}) no-repeat 14px 44px/22px 22px;
   }
 `;
 
 const SliderWrap = styled.div`
   @media screen and (min-width: 768px) {
-    width: 50%;
-    position: absolute;
-    top: 0;
-    left: 0;
+    margin: 30px 0;
   }
   @media screen and (min-width: 1024px) {
-    width: 60%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 600px;
+    margin: 0;
   }
 `;
 
@@ -84,6 +84,12 @@ const ImgWrap = styled.div`
   border-radius: 50%;
   overflow: hidden;
   background: url(${basicProfile}) #d2d2d2 no-repeat 5px 5px/30px 30px;
+
+  @media screen and (min-width: 768px) {
+    width: 50px;
+    height: 50px;
+    background: url(${basicProfile}) #d2d2d2 no-repeat 8px 8px/34px 34px;
+  }
 `;
 
 const Img = styled.img`
@@ -100,37 +106,33 @@ const WriterWrap = styled.div`
 const Nickname = styled.div`
   font-size: 15px;
   line-height: 18px;
+  font-weight: 500;
+
+  @media screen and (min-width: 768px) {
+    line-height: 20px;
+  }
 `;
 
 const Occupation = styled.div`
   font-size: 12px;
   line-height: 14px;
   color: #757575;
+
+  @media screen and (min-width: 768px) {
+    line-height: 16px;
+  }
 `;
 
 const BottomWrap = styled.div`
-  @media screen and (min-width: 768px) {
-    display: flex;
-    flex-direction: column;
+  @media screen and (min-width: 1024px) {
     position: absolute;
-    top: 60px;
+    top: 650px;
     right: 0;
-    width: 50%;
-  }
-  @media screen and (min-width: 1024px) {
-    width: 40%;
+    width: 600px;
   }
 `;
 
-const ButtonWrap = styled.div`
-  @media screen and (min-width: 768px) {
-    order: 2;
-  }
-
-  @media screen and (min-width: 1024px) {
-    padding: 0 5px;
-  }
-`;
+const ButtonWrap = styled.div``;
 
 const Button = styled.button`
   background: url(${(props) => (props.clicked ? fillHeart : emptyHeart)})
@@ -148,18 +150,17 @@ const Comment = styled.span`
   vertical-align: top;
 `;
 
+const StyleScroll = {
+  display: "inline-block",
+  width: "40px",
+  height: "40px",
+  verticalAlign: "top",
+};
+
 const Description = styled.p`
   padding: 10px;
   word-break: break-word;
   font-size: 15px;
-
-  @media screen and (min-width: 768px) {
-    order: 1;
-  }
-
-  @media screen and (min-width: 1024px) {
-    padding: 15px;
-  }
 `;
 
 const CountWrap = styled.div`
@@ -167,11 +168,7 @@ const CountWrap = styled.div`
   padding: 10px;
 
   @media screen and (min-width: 768px) {
-    order: 3;
-  }
-
-  @media screen and (min-width: 1024px) {
-    padding: 15px;
+    padding-bottom: 30px;
   }
 `;
 
@@ -189,7 +186,23 @@ const CounteTitle = styled.div`
 
 const CommentWrap = styled.div`
   @media screen and (min-width: 768px) {
-    order: 4;
+    padding: 30px 0;
+    border-top: 1px solid #d0d0d0;
+  }
+`;
+
+const CommentTitle = styled.h2`
+  display: none;
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0 10px 20px;
+
+  span {
+    color: #77c4a3;
+  }
+
+  @media screen and (min-width: 768px) {
+    display: block;
   }
 `;
 
@@ -202,6 +215,17 @@ const Dropdown = styled.ul`
   width: 100px;
   background-color: #fff;
   display: ${(props) => (props.open ? "block" : "none")};
+
+  @media screen and (min-width: 768px) {
+    top: 80px;
+    right: 40px;
+  }
+  @media screen and (min-width: 1024px) {
+    right: 0;
+    left: 240px;
+    top: 200px;
+    position: fixed;
+  }
 `;
 
 const MenuItem = styled.li`
@@ -288,8 +312,8 @@ const ContentDetail = ({ location: { state }, history }) => {
             <Nickname>{item.user.username}</Nickname>
             <Occupation>Developer</Occupation>
           </WriterWrap>
+          <MoreButton onClick={showMenu} />
         </Headers>
-        <MoreButton onClick={showMenu} />
         <Dropdown ref={dropdownRef} open={isActive}>
           <MenuItem>
             <SLink
@@ -311,7 +335,16 @@ const ContentDetail = ({ location: { state }, history }) => {
         <BottomWrap>
           <ButtonWrap>
             <Button clicked={isLike} onClick={() => setIsLike(!isLike)} />
-            <Comment />
+            <Scroll.Link
+              activeClass="active"
+              to="comments"
+              spy={true}
+              smooth={true}
+              duration={500}
+              style={StyleScroll}
+            >
+              <Comment />
+            </Scroll.Link>
           </ButtonWrap>
           <Description>{item.description}</Description>
           <CountWrap>
@@ -326,18 +359,23 @@ const ContentDetail = ({ location: { state }, history }) => {
             </CounteTitle>
           </CountWrap>
           <CommentWrap>
-            <WritingComment
-              contentId={item.id}
-              accessToken={access_token}
-              comments={comments}
-              setComments={setComments}
-            />
-            <CommentList
-              contentId={item.id}
-              comments={comments}
-              setComments={setComments}
-              accessToken={access_token}
-            />
+            <Scroll.Element name="comments">
+              <CommentTitle>
+                댓글&nbsp;<span>{comments && comments.length}</span>
+              </CommentTitle>
+              <WritingComment
+                contentId={item.id}
+                accessToken={access_token}
+                comments={comments}
+                setComments={setComments}
+              />
+              <CommentList
+                contentId={item.id}
+                comments={comments}
+                setComments={setComments}
+                accessToken={access_token}
+              />
+            </Scroll.Element>
           </CommentWrap>
         </BottomWrap>
       </Container>
