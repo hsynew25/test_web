@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import { replyApi } from "../../../api";
 import basicProfile from "../../../img/Icon/profile user.png";
+import cancelIcon from "../../../img/cancel.png";
+import ContentEditable from "react-contenteditable";
 
 const Container = styled.div`
   display: flex;
@@ -30,6 +32,7 @@ const Img = styled.img`
 const ContentWrap = styled.div`
   position: relative;
   flex-grow: 1;
+  flex-basis: 255px;
 `;
 
 const Textarea = styled.textarea`
@@ -46,24 +49,38 @@ const Button = styled.button`
   top: 0;
   right: 0;
   width: 40px;
-  height: 54px;
+  min-height: 38px;
+  height: 100%;
   color: #77c4a3;
 `;
 
+const ToUser = styled.a``;
+
+const temp = {
+  resize: "none",
+  width: "100%",
+  padding: "10px 40px 10px 10px",
+  border: "1px solid #d0d0d0",
+  borderRadius: "5px",
+  fontSize: "14px",
+  minHeight: "38px",
+  lineHeight: "18px",
+};
+
 const WritingReply = ({ show, accessToken, replyId, toUser }) => {
-  const [description, setDescription] = useState("");
+  const replyText = useRef("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (description === "") {
+    if (replyText.current === "") {
       return;
     }
-    setDescription("");
+
     try {
       const response = await replyApi.sendReReply(
         accessToken,
         replyId,
-        description,
+        replyText.current,
         toUser
       );
       if (response.status === 200) {
@@ -76,6 +93,16 @@ const WritingReply = ({ show, accessToken, replyId, toUser }) => {
     }
   };
 
+  const handleChange = (e) => {
+    replyText.current = e.target.value;
+  };
+
+  const handleBlur = () => {
+    console.log(replyText.current);
+  };
+
+  console.log(toUser);
+
   return (
     <Form show={show} onSubmit={handleSubmit}>
       <Container>
@@ -83,9 +110,11 @@ const WritingReply = ({ show, accessToken, replyId, toUser }) => {
           <Img src={null} />
         </ImgWrap>
         <ContentWrap>
-          <Textarea
-            value={description}
-            onChange={(e) => setDescription(e.currentTarget.value)}
+          <ContentEditable
+            html={replyText.current}
+            onBlur={handleBlur}
+            onChange={handleChange}
+            style={temp}
           />
           <Button onClick={handleSubmit}>게시</Button>
         </ContentWrap>
