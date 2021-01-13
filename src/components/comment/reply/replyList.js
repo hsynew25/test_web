@@ -12,8 +12,14 @@ const ReplyList = ({ showWriting, setShowWriting, items }) => {
     <List>
       {items &&
         items.length > 0 &&
-        items.map((item) => <ReplyItem key={item.id} item={item} />)}
-      {/* <ReplyItem showWriting={showWriting} setShowWriting={setShowWriting} /> */}
+        items.map((item) => (
+          <ReplyItem
+            key={item.id}
+            showWriting={showWriting}
+            setShowWriting={setShowWriting}
+            item={item}
+          />
+        ))}
     </List>
   );
 };

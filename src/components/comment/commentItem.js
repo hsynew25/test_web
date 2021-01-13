@@ -84,6 +84,8 @@ const ButtonWrap = styled.div`
 
 const CommentItem = ({ item, accessToken }) => {
   const [showWriting, setShowWriting] = useState(false);
+
+  console.log(item);
   return (
     <Container>
       <ImgWrap>
@@ -102,10 +104,11 @@ const CommentItem = ({ item, accessToken }) => {
           <Button>수정</Button>
           <Button>삭제</Button>
         </Footer>
-        {/* <ReplyList
+        <ReplyList
           showWriting={showWriting}
           setShowWriting={setShowWriting}
-        ></ReplyList> */}
+          items={item.replies}
+        />
         <WritingReply
           show={showWriting}
           accessToken={accessToken}
