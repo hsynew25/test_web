@@ -6,18 +6,13 @@ const List = styled.ul`
   background-color: blanchedalmond;
 `;
 
-const ReplyList = ({ showWriting, setShowWriting, items }) => {
+const ReplyList = ({ writeRereply, items }) => {
   return (
     <List>
       {items &&
         items.length > 0 &&
         items.map((item) => (
-          <ReplyItem
-            key={item.id}
-            showWriting={showWriting}
-            setShowWriting={setShowWriting}
-            item={item}
-          />
+          <ReplyItem key={item.id} writeRereply={writeRereply} item={item} />
         ))}
     </List>
   );

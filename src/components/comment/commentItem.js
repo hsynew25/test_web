@@ -84,6 +84,12 @@ const ButtonWrap = styled.div`
 
 const CommentItem = ({ item, accessToken }) => {
   const [showWriting, setShowWriting] = useState(false);
+  const [toUser, setToUser] = useState(null);
+
+  const writeRereply = (user) => {
+    setShowWriting(true);
+    setToUser(user.nickname);
+  };
   return (
     <Container>
       <ImgWrap>
@@ -98,20 +104,16 @@ const CommentItem = ({ item, accessToken }) => {
             <span>{item.replyExt.like}</span>
           </ButtonWrap>
           <DateBefore>1일전</DateBefore>
-          <Button onClick={() => setShowWriting(!showWriting)}>답글달기</Button>
+          <Button onClick={() => writeRereply(item.user)}>답글달기</Button>
           <Button>수정</Button>
           <Button>삭제</Button>
         </Footer>
-        <ReplyList
-          showWriting={showWriting}
-          setShowWriting={setShowWriting}
-          items={item.replies}
-        />
+        <ReplyList writeRereply={writeRereply} items={item.replies} />
         <WritingReply
           show={showWriting}
           accessToken={accessToken}
           replyId={item.id}
-          toUser={item.user.username}
+          toUser={toUser}
         />
       </ContentWrap>
     </Container>

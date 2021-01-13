@@ -91,7 +91,7 @@ const ButtonWrap = styled.div`
   }
 `;
 
-const ReplyItem = ({ showWriting, setShowWriting, item }) => {
+const ReplyItem = ({ writeRereply, item }) => {
   const [writeDate, setWriteDate] = useState(null);
 
   useEffect(() => {
@@ -125,7 +125,7 @@ const ReplyItem = ({ showWriting, setShowWriting, item }) => {
             <span>{item.rereplyExt.like}</span>
           </ButtonWrap>
           <DateBefore>{writeDate}</DateBefore>
-          <ReplyButton onClick={() => setShowWriting(!showWriting)}>
+          <ReplyButton onClick={() => writeRereply(item.user)}>
             답글달기
           </ReplyButton>
         </Footer>
