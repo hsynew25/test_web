@@ -6,10 +6,14 @@ const List = styled.ul`
   background-color: blanchedalmond;
 `;
 
-const ReplyList = ({ showWriting, setShowWriting }) => {
+const ReplyList = ({ showWriting, setShowWriting, items }) => {
+  console.log(items);
   return (
     <List>
-      <ReplyItem showWriting={showWriting} setShowWriting={setShowWriting} />
+      {items &&
+        items.length > 0 &&
+        items.map((item) => <ReplyItem key={item.id} item={item} />)}
+      {/* <ReplyItem showWriting={showWriting} setShowWriting={setShowWriting} /> */}
     </List>
   );
 };

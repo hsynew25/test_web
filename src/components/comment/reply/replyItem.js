@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import basicProfile from "../../../img/Icon/profile user.png";
 import handLike from "../../../img/Icon/hand like.png";
 import handUnlike from "../../../img/Icon/hand unlike.png";
+import moment from "moment";
+import "moment/locale/ko";
 
 const Container = styled.li`
   padding: 10px 0;
@@ -89,28 +91,42 @@ const ButtonWrap = styled.div`
   }
 `;
 
-const ReplyItem = ({ showWriting, setShowWriting }) => {
+const ReplyItem = ({ showWriting, setShowWriting, item }) => {
+  const [writeDate, setWriteDate] = useState(null);
+
+  useEffect(() => {
+    if (item) {
+      if (item.updatedAt === null) {
+        const fromnow = moment(item.createdAt).fromNow();
+        setWriteDate(fromnow);
+      } else {
+        const fromnow = moment(item.updatedAt).fromNow();
+        setWriteDate(fromnow);
+      }
+    }
+  }, [item]);
+
+  console.log(item);
+
   return (
     <Container>
       <ImgWrap>
-        <Img src={null} />
+        <Img src={item.user.profileImg === "" ? null : item.user.profileImg} />
       </ImgWrap>
       <ContentWrap>
-        <Nickname>hongsungyeun</Nickname>
+        <Nickname>{item.user.nickname}</Nickname>
         <CommentContent>
-          <Tagging>@hongsungyeun</Tagging>
-          예쁘네요 ^^;
+          <Tagging>
+            {item.toUser === null ? "" : `@${item.toUser.username}`}
+          </Tagging>
+          {item.description}
         </CommentContent>
         <Footer>
           <ButtonWrap>
             <LikesButton />
-            <span>13</span>
+            <span>{item.rereplyExt.like}</span>
           </ButtonWrap>
-          <ButtonWrap>
-            <UnlikeButton />
-            <span>0</span>
-          </ButtonWrap>
-          <DateBefore>1일전</DateBefore>
+          <DateBefore>{writeDate}</DateBefore>
           <ReplyButton onClick={() => setShowWriting(!showWriting)}>
             답글달기
           </ReplyButton>
