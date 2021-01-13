@@ -8,7 +8,6 @@ import ReplyList from "./reply/replyList";
 import ReplyItem from "./reply/replyItem";
 import WritingReply from "./reply/writingReply";
 import handLike from "../../img/Icon/hand like.png";
-import handUnlike from "../../img/Icon/hand unlike.png";
 
 const Container = styled.li`
   padding: 10px 0;
@@ -72,12 +71,6 @@ const LikesButton = styled.button`
   height: 16px;
 `;
 
-const UnlikeButton = styled.button`
-  background: url(${handUnlike}) no-repeat 0 0/ 16px 16px;
-  width: 16px;
-  height: 16px;
-`;
-
 const ButtonWrap = styled.div`
   display: inline-block;
   vertical-align: top;
@@ -103,10 +96,6 @@ const CommentItem = ({ item, accessToken }) => {
           <ButtonWrap>
             <LikesButton />
             <span>{item.replyExt.like}</span>
-          </ButtonWrap>
-          <ButtonWrap>
-            <UnlikeButton />
-            <span>{item.replyExt.dislike}</span>
           </ButtonWrap>
           <DateBefore>1일전</DateBefore>
           <Button onClick={() => setShowWriting(!showWriting)}>답글달기</Button>
