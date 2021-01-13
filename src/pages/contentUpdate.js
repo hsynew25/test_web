@@ -9,6 +9,7 @@ import basicProfile from "../img/Icon/profile user.png";
 import Sliders from "../components/slider/sliders";
 import TextareaAutosize from "react-textarea-autosize";
 import { contentApi } from "../api";
+import Loader from "../components/loader";
 
 const Container = styled.div`
   position: relative;
@@ -139,16 +140,22 @@ const ContentUpdate = ({
     myProfile: { nickname, profileImg },
   } = useGetMyProfile(access_token, isLogin);
   const [newDescription, setNewDescription] = useState(item.description);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const response = await contentApi.updateContent(
         access_token,
         item.id,
         newDescription
       );
-      console.log(response);
+      if (response.status === 200) {
+        setLoading(false);
+        alert("WOW~ 성공적으로 게시되었습니다 🙌");
+        history.go(-1);
+      }
     } catch (error) {
       console.log(error.response);
     }
@@ -167,13 +174,14 @@ const ContentUpdate = ({
     <>
       <Header isLogin={isLogin} nickname={nickname} profileImg={profileImg} />
       <Container>
+        {loading && <Loader />}
         <Headers>
           <ImgWrap>
             <Img src={null} />
           </ImgWrap>
           <WriterWrap>
             <Nickname>{item.user.username}</Nickname>
-            <Occupation>Developer</Occupation>
+            <Occupation>{item.user.job}</Occupation>
           </WriterWrap>
         </Headers>
         <SliderWrap>
