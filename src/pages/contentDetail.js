@@ -259,7 +259,7 @@ const SLink = styled(Link)`
   line-height: 18px;
 `;
 
-const ContentDetail = ({ location: { state }, history }) => {
+const ContentDetail = ({ history, match }) => {
   const { access_token } = useGetToken();
   const { isLogin } = useLogin(access_token);
   const {
@@ -272,7 +272,7 @@ const ContentDetail = ({ location: { state }, history }) => {
 
   const { loading, data: item, error } = useAxios(
     contentApi.getContent,
-    ...Object.values(state)
+    match.params.id
   );
 
   const showMenu = () => {
@@ -324,7 +324,7 @@ const ContentDetail = ({ location: { state }, history }) => {
           <MenuItem>
             <SLink
               to={{
-                pathname: `/contents/update/${state.itemId}`,
+                pathname: `/contents/update/${match.params.id}`,
                 state: { item },
               }}
             >
@@ -374,12 +374,14 @@ const ContentDetail = ({ location: { state }, history }) => {
                 accessToken={access_token}
                 comments={comments}
                 setComments={setComments}
+                profileImg={profileImg}
               />
               <CommentList
                 contentId={item.id}
                 comments={comments}
                 setComments={setComments}
                 accessToken={access_token}
+                profileImg={profileImg}
               />
             </Scroll.Element>
           </CommentWrap>
