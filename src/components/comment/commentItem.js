@@ -61,10 +61,9 @@ const DateBefore = styled.span`
   margin: 5px;
 `;
 
-const ReplyButton = styled.button`
+const Button = styled.button`
   color: #757575;
   font-size: 13px;
-  margin: 0 5px;
 `;
 
 const LikesButton = styled.button`
@@ -110,9 +109,9 @@ const CommentItem = ({ item, accessToken }) => {
             <span>{item.replyExt.dislike}</span>
           </ButtonWrap>
           <DateBefore>1일전</DateBefore>
-          <ReplyButton onClick={() => setShowWriting(!showWriting)}>
-            답글달기
-          </ReplyButton>
+          <Button onClick={() => setShowWriting(!showWriting)}>답글달기</Button>
+          <Button>수정</Button>
+          <Button>삭제</Button>
         </Footer>
         {/* <ReplyList
           showWriting={showWriting}
