@@ -43,7 +43,9 @@ const Headers = styled.div`
     border-bottom: 1px solid #d0d0d0;
   }
   @media screen and (min-width: 1024px) {
-    position: fixed;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 300px;
     border-bottom: 0;
     border-top: 1px solid #d0d0d0;
@@ -210,21 +212,21 @@ const Dropdown = styled.ul`
   z-index: 100;
   box-shadow: 0 0 5px #d2d2d2;
   position: absolute;
-  top: 60px;
+  top: 110px;
   right: 0;
   width: 100px;
   background-color: #fff;
   display: ${(props) => (props.open ? "block" : "none")};
 
   @media screen and (min-width: 768px) {
-    top: 80px;
+    top: 160px;
     right: 40px;
   }
   @media screen and (min-width: 1024px) {
-    right: 0;
-    left: 240px;
-    top: 200px;
-    position: fixed;
+    right: unset;
+    left: 200px;
+    top: 80px;
+    position: absolute;
   }
 `;
 
