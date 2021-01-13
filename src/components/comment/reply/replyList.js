@@ -7,7 +7,6 @@ const List = styled.ul`
 `;
 
 const ReplyList = ({ showWriting, setShowWriting, items }) => {
-  console.log(items);
   return (
     <List>
       {items &&

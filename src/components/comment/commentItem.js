@@ -84,8 +84,6 @@ const ButtonWrap = styled.div`
 
 const CommentItem = ({ item, accessToken }) => {
   const [showWriting, setShowWriting] = useState(false);
-
-  console.log(item);
   return (
     <Container>
       <ImgWrap>

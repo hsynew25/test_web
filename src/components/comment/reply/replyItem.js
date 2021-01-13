@@ -106,8 +106,6 @@ const ReplyItem = ({ showWriting, setShowWriting, item }) => {
     }
   }, [item]);
 
-  console.log(item);
-
   return (
     <Container>
       <ImgWrap>
