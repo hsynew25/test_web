@@ -54,6 +54,7 @@ const Headers = styled.div`
 `;
 
 const MoreButton = styled.button`
+  display: ${(props) => (props.isShow ? "block" : "none")};
   position: absolute;
   top: 0;
   right: 0;
@@ -262,7 +263,7 @@ const ContentDetail = ({ location: { state }, history }) => {
   const { access_token } = useGetToken();
   const { isLogin } = useLogin(access_token);
   const {
-    myProfile: { nickname, profileImg },
+    myProfile: { username, nickname, profileImg },
   } = useGetMyProfile(access_token, isLogin);
   const dropdownRef = useRef();
   const [isLike, setIsLike] = useState(false);
@@ -312,9 +313,12 @@ const ContentDetail = ({ location: { state }, history }) => {
           </ImgWrap>
           <WriterWrap>
             <Nickname>{item.user.username}</Nickname>
-            <Occupation>Developer</Occupation>
+            <Occupation>{item.user.job}</Occupation>
           </WriterWrap>
-          <MoreButton onClick={showMenu} />
+          <MoreButton
+            onClick={showMenu}
+            isShow={username === item.user.username}
+          />
         </Headers>
         <Dropdown ref={dropdownRef} open={isActive}>
           <MenuItem>
